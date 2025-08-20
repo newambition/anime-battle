@@ -19,12 +19,12 @@ const CharacterSelect = ({
 }: Props) => {
   return (
     <div className="flex w-full flex-col items-center justify-center gap-4 p-4 pt-6">
-      <div className="pb-12 text-center text-xl font-bold">
+      <div className="text-ab-text pb-12 text-center text-xl font-bold">
         Choose Your Fighters
       </div>
       <div className="grid grid-cols-2 gap-6">
         <div className="flex flex-col items-start gap-4">
-          <div className="text-sm font-medium">Your Character</div>
+          <div className="text-ab-text text-sm font-medium">Your Character</div>
           <select
             className="move-button max-w-56 min-w-48 text-sm"
             value={playerChoiceId}
@@ -38,7 +38,7 @@ const CharacterSelect = ({
           </select>
         </div>
         <div className="flex flex-col items-end gap-4 pt-32">
-          <div className="text-sm font-medium">Opponent</div>
+          <div className="text-ab-text text-sm font-medium">Opponent</div>
           <select
             className="move-button max-w-56 min-w-48 text-sm"
             value={opponentChoiceId}

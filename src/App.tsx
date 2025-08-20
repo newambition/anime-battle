@@ -162,12 +162,12 @@ function App() {
   };
 
   return (
-    <div className="flex min-h-dvh items-center justify-center bg-gray-200 px-2 py-1">
+    <div className="bg-ab-bg flex min-h-dvh items-center justify-center px-2 py-1">
       <div className="battle-container relative flex flex-col gap-4 rounded-xl p-2">
         {gameState !== 'selecting' && (
           <button
             onClick={handleRestart}
-            className="absolute top-2 left-2 rounded-lg border-2 border-gray-600 p-2 text-xl"
+            className="border-ab-border bg-ab-highlight-44 absolute top-2 left-2 rounded-lg border-2 p-2 text-xl"
           >
             <RotateCcw className="h-4 w-4" strokeWidth={2} />
           </button>
@@ -216,7 +216,7 @@ function App() {
           </div>
         )}
 
-        <div className="flex w-full flex-col gap-2 rounded-lg p-2">
+        <div className="flex w-full flex-col gap-6 rounded-lg p-2">
           <div className="w-full">
             <BattleLog messages={battleLog} />
           </div>

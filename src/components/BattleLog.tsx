@@ -8,7 +8,7 @@ const BattleLog = ({ messages }: { messages: string[] }) => {
   }, [messages]);
 
   return (
-    <div className="message-box h-34 w-full overflow-y-auto text-sm leading-relaxed">
+    <div className="message-box text-ab-text h-34 w-full overflow-y-auto text-sm leading-relaxed">
       {messages.map((msg, index) => (
         <div key={index}>{msg}</div>
       ))}
