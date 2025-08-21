@@ -12,6 +12,9 @@ import YujiSprite from '../assets/YujiItadori.png';
 import MidoriyaSprite from '../assets/IzukuMidoriya.png';
 import BakugoSprite from '../assets/KatsukiBakugo.png';
 import EdwardSprite from '../assets/EdwardElric.png';
+import RoySprite from '../assets/RoyMustang.png';
+import SebastianSprite from '../assets/SebastianMichaelis.png';
+import CielSprite from '../assets/CielPhantomhive.png';
 
 export type MoveEffect =
   | 'defense_up'
@@ -530,6 +533,106 @@ export const CHARACTERS: Record<string, Character> = {
         power: 60,
         accuracy: 1.0,
         effect: 'enemy_defense_down',
+        value: 1,
+      },
+    ],
+  },
+  p015: {
+    id: 'p015',
+    name: 'Roy Mustang',
+    //series: 'Fullmetal Alchemist',
+    sprite: RoySprite,
+    hp: 80,
+    attack: 120,
+    defense: 65,
+    moves: [
+      { id: 'm057', name: 'Flame Alchemy', power: 90, accuracy: 1.0 },
+      {
+        id: 'm058',
+        name: 'Ignition',
+        power: 0,
+        accuracy: 1.0,
+        effect: 'attack_up',
+        value: 2,
+      },
+      {
+        id: 'm059',
+        name: 'Pinpoint Alchemy',
+        power: 70,
+        accuracy: 1.0,
+        highCritChance: true,
+      },
+      { id: 'm060', name: 'Inferno', power: 130, accuracy: 0.9 },
+    ],
+  },
+  p016: {
+    id: 'p016',
+    name: 'Sebastian Michaelis',
+    //series: 'Black Butler',
+    sprite: SebastianSprite,
+    hp: 100,
+    attack: 125,
+    defense: 95,
+    moves: [
+      { id: 'm085', name: 'Silver Knife Flurry', power: 80, accuracy: 1.0 },
+      {
+        id: 'm086',
+        name: "Butler's Grace",
+        power: 0,
+        accuracy: 1.0,
+        effect: 'defense_up',
+        value: 2,
+      },
+      {
+        id: 'm087',
+        name: 'True Form Glimpse',
+        power: 130,
+        accuracy: 0.9,
+        effect: 'enemy_defense_down',
+        value: 1,
+      },
+      {
+        id: 'm088',
+        name: "Hell's Contract",
+        power: 0,
+        accuracy: 1.0,
+        effect: 'attack_up',
+        value: 2,
+      },
+    ],
+  },
+  p017: {
+    id: 'p017',
+    name: 'Ciel Phantomhive',
+    //series: 'Black Butler',
+    sprite: CielSprite,
+    hp: 70,
+    attack: 60,
+    defense: 65,
+    moves: [
+      { id: 'm089', name: 'Sebastian, an Order', power: 50, accuracy: 1.0 },
+      {
+        id: 'm090',
+        name: 'Checkmate',
+        power: 0,
+        accuracy: 1.0,
+        effect: 'enemy_defense_down',
+        value: 2,
+      },
+      {
+        id: 'm091',
+        name: 'This is an Order!',
+        power: 0,
+        accuracy: 1.0,
+        effect: 'attack_up',
+        value: 2,
+      },
+      {
+        id: 'm092',
+        name: "Funtom's Might",
+        power: 90,
+        accuracy: 0.95,
+        effect: 'enemy_attack_down',
         value: 1,
       },
     ],

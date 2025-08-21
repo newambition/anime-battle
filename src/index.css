@@ -1,8 +1,22 @@
 @import 'tailwindcss';
 
+@font-face {
+  font-family: 'Mangatb';
+  src: url('/fonts/mangatb.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Mangat';
+  src: url('/fonts/mangat.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+}
+
 :root {
   /* Anime Battle – Neon Arcade palette */
-  --ab-bg: #f0f1f5;
+  --ab-bg: #b6b6ff;
   --ab-surface: #ffffff;
   --ab-surface-muted: #f8fafc;
 
@@ -22,18 +36,39 @@
   --ab-accent: #f59e0b;
   --ab-accent-600: #d97706;
 
-  --ab-success: #32cd32;
-  --ab-warning: #f59e0b;
+  --ab-success: #c1fba4;
+  --ab-warning: #ffef9f;
   --ab-danger: #dc2626;
   --ab-info: #06b6d4;
 
-  --ab-highlight: #6b91e2;
-  --ab-highlight-44: #6b91e270;
+  --ab-highlight: #90f1ef;
+  --ab-highlight-44: #90f1ef9b;
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+::-webkit-scrollbar {
+  display: none;
+}
+/* Hide scrollbar for IE, Edge and Firefox */
+body {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
 }
 
 body {
-  font-family: 'Press Start 2P', cursive;
+  font-family: 'Mangat', sans-serif;
+  font-weight: 400;
   background-color: var(--ab-bg); /* bg-gray-200 equivalent */
+  overflow-x: hidden; /* Prevent horizontal scrolling at page level */
+}
+
+.mangat-bold {
+  font-family: 'Mangatb', sans-serif;
+  font-weight: 700;
+}
+
+html {
+  overflow-x: hidden; /* Prevent horizontal scrolling at document level */
 }
 
 .battle-container {
@@ -60,8 +95,8 @@ body {
 
 /* bottom + left border */
 .battle-box-bl {
-  border-bottom: 2px solid var(--ab-border);
-  border-left: 2px solid var(--ab-border);
+  border-bottom: 3px solid var(--ab-border);
+  border-left: 3px solid var(--ab-border);
   border-style: double;
   padding: 12px;
   min-height: fit-content;
@@ -71,21 +106,21 @@ body {
 
 /* bottom + right border */
 .battle-box-br {
-  border-bottom: 2px solid var(--ab-border);
-  border-right: 2px solid var(--ab-border);
+  border-bottom: 3px solid var(--ab-border);
+  border-right: 3px solid var(--ab-border);
   border-style: double;
   padding: 12px;
   min-height: fit-content;
   border-bottom-right-radius: 8px;
 }
 
-.battle-box-bottom {
+/* .battle-box-bottom {
   border-top: 2px solid var(--ab-border);
   border-right: 2px solid var(--ab-border);
 
   padding: 8px;
   border-top-right-radius: 8px;
-}
+} */
 
 .message-box {
   border: 2px solid var(--ab-border);
@@ -108,8 +143,8 @@ body {
 }
 
 .sprite-placeholder {
-  width: 130px;
-  height: 130px;
+  width: 150px;
+  height: 150px;
   display: flex;
   margin-bottom: 0px;
   margin-left: 0px;
@@ -124,19 +159,71 @@ body {
 .move-button {
   border: 2px solid var(--ab-border);
   border-radius: 8px;
-  background-color: transparent;
+  background-color: var(--ab-highlight-44);
   padding: 12px 16px;
   text-align: center;
   cursor: pointer;
   box-shadow: 2px 2px 0 var(--ab-shadow);
-  font-size: 12px;
+  font-family: 'Mangatb', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  flex-grow: inherit;
+}
+
+.move-button-user {
+  background-color: var(--ab-success);
+  border: 2px solid var(--ab-border);
+  border-radius: 8px;
+  padding: 12px 16px;
+  text-align: center;
+  cursor: pointer;
+  box-shadow: 2px 2px 0 var(--ab-shadow);
+  font-size: 14px;
+  font-weight: 700;
+  flex-grow: inherit;
+}
+
+.move-button-opponent {
+  background-color: var(--ab-warning);
+  border: 2px solid var(--ab-border);
+  border-radius: 8px;
+  padding: 12px 16px;
+  text-align: center;
+  cursor: pointer;
+  box-shadow: 2px 2px 0 var(--ab-shadow);
+  font-size: 14px;
+  font-weight: 700;
+  flex-grow: inherit;
 }
 
 .move-button:hover {
-  background-color: var(--ab-highlight-44);
+  filter: brightness(0.9);
 }
 
 .move-button:active {
   transform: translate(2px, 2px);
   box-shadow: none;
+}
+
+.menu-button {
+  border: 2px solid var(--ab-border);
+  border-radius: 8px;
+  background-color: var(--ab-highlight-44);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 12px 22px;
+  text-align: center;
+  cursor: pointer;
+  box-shadow: 4px 4px 0 var(--ab-shadow);
+}
+
+.menu-button:hover {
+  filter: brightness(0.9);
+}
+
+.menu-button:active {
+  transform: translate(4px, 4px);
+  box-shadow: inset 4px 4px 6px 0px var(--ab-shadow);
 }

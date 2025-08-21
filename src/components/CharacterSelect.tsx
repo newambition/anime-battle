@@ -1,50 +1,44 @@
-import { type Character } from '../data/battleData.ts';
+import { CHARACTERS } from '../data/battleData.ts';
+import useBattleStore from '../store/battleStore.ts';
 
-type Props = {
-  characters: Record<string, Character>;
-  playerChoiceId: string;
-  opponentChoiceId: string;
-  onChangePlayer: (id: string) => void;
-  onChangeOpponent: (id: string) => void;
-  onStartBattle: () => void;
-};
+const CharacterSelect = () => {
+  const {
+    playerChoiceId,
+    opponentChoiceId,
+    setPlayerChoice,
+    setOpponentChoice,
+    startBattle,
+  } = useBattleStore();
 
-const CharacterSelect = ({
-  characters,
-  playerChoiceId,
-  opponentChoiceId,
-  onChangePlayer,
-  onChangeOpponent,
-  onStartBattle,
-}: Props) => {
   return (
     <div className="flex w-full flex-col items-center justify-center gap-4 p-4 pt-6">
-      <div className="text-ab-text pb-12 text-center text-xl font-bold">
-        Choose Your Fighters
+      <div className="mangat-bold mt-4 text-center text-2xl leading-loose tracking-tight">
+        {'{ '}Choose Your{' }'} <br /> {'{ '}Fighters{' }'}
       </div>
-      <div className="grid grid-cols-2 gap-6">
-        <div className="flex flex-col items-start gap-4">
-          <div className="text-ab-text text-sm font-medium">Your Character</div>
+      <img src="src/assets/MenuImage.png" alt="Characters" className="w-full" />
+      <div className="flex w-full flex-col items-center gap-6">
+        <div className="flex flex-col items-center gap-4">
+          <div className="text-md text-center font-medium">Your Character</div>
           <select
-            className="move-button max-w-56 min-w-48 text-sm"
+            className="move-button-user max-w-56 min-w-48 text-sm"
             value={playerChoiceId}
-            onChange={(e) => onChangePlayer(e.target.value)}
+            onChange={(e) => setPlayerChoice(e.target.value)}
           >
-            {Object.entries(characters).map(([id, ch]) => (
+            {Object.entries(CHARACTERS).map(([id, ch]) => (
               <option key={id} value={id}>
                 {ch.name}
               </option>
             ))}
           </select>
         </div>
-        <div className="flex flex-col items-end gap-4 pt-32">
-          <div className="text-ab-text text-sm font-medium">Opponent</div>
+        <div className="flex flex-col items-center gap-4">
+          <div className="text-md text-center font-medium">Opponent</div>
           <select
-            className="move-button max-w-56 min-w-48 text-sm"
+            className="move-button-opponent max-w-56 min-w-48 text-sm"
             value={opponentChoiceId}
-            onChange={(e) => onChangeOpponent(e.target.value)}
+            onChange={(e) => setOpponentChoice(e.target.value)}
           >
-            {Object.entries(characters).map(([id, ch]) => (
+            {Object.entries(CHARACTERS).map(([id, ch]) => (
               <option key={id} value={id}>
                 {ch.name}
               </option>
@@ -53,9 +47,19 @@ const CharacterSelect = ({
         </div>
       </div>
       <div className="flex justify-center pt-10">
-        <button onClick={onStartBattle} className="move-button text-xl">
-          Start Battle
-        </button>
+        <div className="relative inline-block">
+          <button
+            onClick={startBattle}
+            className="menu-button mangat-bold text-xl"
+          >
+            Start Battle...
+          </button>
+          <img
+            src="src/assets/winkHeart.svg"
+            alt="Wink Heart"
+            className="pointer-events-none absolute -top-4 -left-3 w-10 -rotate-12 select-none"
+          />
+        </div>
       </div>
     </div>
   );

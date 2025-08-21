@@ -13,6 +13,32 @@ The project is structured as follows:
 -   `public/`: Static assets, such as images and icons.
 -   `docs/`: Project documentation.
 
+## Battle Engine
+
+The battle engine is the core of the game, handling all game logic and state management.
+
+### Core Philosophy
+
+The engine is designed around two key principles:
+
+1.  **Deterministic Logic:** The core game logic is completely deterministic. Given the same initial state, the same sequence of moves, and the same random number generation, the outcome of a battle will always be identical.
+2.  **Event-Driven Architecture:** The engine produces an array of `BattleEvent` objects, which the UI layer uses to update the display. This decouples the game logic from its presentation.
+
+### Architecture
+
+The engine is composed of several modules:
+
+-   `engine.ts`: The main facade and entry point for the engine.
+-   `battleTypes.ts`: Defines all the core data structures.
+-   `battleData.ts`: Contains the static data for all characters and their moves.
+-   `battleMath.ts`: Pure functions for all mathematical calculations.
+-   `effects.ts`: Pure functions for resolving the effects of moves.
+-   `charge.ts`: Pure functions for managing the state of multi-turn charge moves.
+
+### The `takeTurn` Function
+
+`takeTurn` is the heart of the engine and follows a strict order of operations to resolve a turn, including charge handling, move resolution, cost application, status gating, accuracy rolls, damage calculation, and effect application.
+
 ## Building and Running
 
 To get the project up and running, follow these steps:
@@ -46,7 +72,16 @@ The project uses Prettier for code formatting and ESLint for linting. The config
 
 ### Testing
 
-There are no testing frameworks set up in this project.
+The engine's deterministic and modular design makes it highly testable.
+
+-   **Pure Helpers:** Functions in `battleMath.ts`, `effects.ts`, and `charge.ts` can be tested with known inputs.
+-   **Full Turn:** The `takeTurn` function can be tested by providing an initial `BattleState` and inspecting the final state and the emitted `BattleEvent` array.
+
+Although the architecture supports it, there are currently no testing frameworks set up in this project.
+
+### Future Architecture (Zustand)
+
+The current state management in `App.tsx` using `useState` and `useEffect` is functional but has proven to be a source of bugs. The next major architectural improvement will be to migrate the application's state management to **Zustand**.
 
 ### Contribution Guidelines
 

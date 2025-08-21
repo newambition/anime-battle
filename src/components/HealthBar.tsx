@@ -16,7 +16,7 @@ const HealthBar = ({
   return (
     <div className={containerClassName}>
       <div className="mb-1 flex items-center justify-between">
-        <span className="text-sm">{name}</span>
+        <span className="mangat-bold text-sm">{name}</span>
         <span className="text-sm">Lv{level}</span>
       </div>
       <div className="health-bar-bg">

@@ -1,33 +1,6 @@
 ```
 
-  p015: {
-    id: 'p015',
-    name: 'Roy Mustang',
-    //series: 'Fullmetal Alchemist',
-    //sprite: 'RoySprite',
-    hp: 80,
-    attack: 120,
-    defense: 65,
-    moves: [
-      { id: 'm057', name: 'Flame Alchemy', power: 90, accuracy: 1.0 },
-      {
-        id: 'm058',
-        name: 'Ignition',
-        power: 0,
-        accuracy: 1.0,
-        effect: 'attack_up',
-        value: 2,
-      },
-      {
-        id: 'm059',
-        name: 'Pinpoint Alchemy',
-        power: 70,
-        accuracy: 1.0,
-        highCritChance: true,
-      },
-      { id: 'm060', name: 'Inferno', power: 130, accuracy: 0.9 },
-    ],
-  },
+
   p016: {
     id: 'p016',
     name: 'Gon Freecss',

@@ -12,7 +12,9 @@
   "dependencies": {
     "lucide-react": "^0.540.0",
     "react": "^19.1.1",
-    "react-dom": "^19.1.1"
+    "react-dom": "^19.1.1",
+    "vite-pwa": "^1.0.2",
+    "zustand": "^5.0.8"
   },
   "devDependencies": {
     "@eslint/js": "^9.33.0",

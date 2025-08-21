@@ -1,0 +1,12 @@
+<svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+  <g transform="translate(0,8)">
+    <path d="M256 454s-180-98-180-222c0-56 45-102 102-102 36 0 64 17 78 36 14-19 42-36 78-36 57 0 102 46 102 102 0 124-180 222-180 222z"
+          fill="#FFB3C7" stroke="#22223B" stroke-width="16" stroke-linejoin="round"/>
+    <rect x="192" y="242" width="36" height="8" rx="4" fill="#22223B" shape-rendering="crispEdges"/>
+    <circle cx="308" cy="244" r="18" fill="#22223B"/>
+    <path d="M214 292 q42 24 84 0" fill="none" stroke="#22223B" stroke-width="12" stroke-linecap="round"/>
+    <!-- sparkles -->
+    <path d="M368 168l8 16 16 8-16 8-8 16-8-16-16-8 16-8z" fill="#FFE082" stroke="#22223B" stroke-width="8"/>
+    <path d="M116 320l6 12 12 6-12 6-6 12-6-12-12-6 12-6z" fill="#A6F0D2" stroke="#22223B" stroke-width="6"/>
+  </g>
+</svg>
