@@ -29,6 +29,7 @@ function App() {
             maxHp={opponent.maxHp}
             level={5}
             stats={`${opponent.hp}/${opponent.maxHp}`}
+            isPlayer={false}
           />
           <CharacterSprite character={opponent} isPlayer={false} />
         </div>
@@ -49,6 +50,7 @@ function App() {
             maxHp={player.maxHp}
             level={5}
             stats={`${player.hp}/${player.maxHp}`}
+            isPlayer={true}
           />
         </div>
       )}

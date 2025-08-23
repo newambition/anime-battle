@@ -1,9 +1,12 @@
+import useBattleStore from '../store/battleStore';
+
 interface HealthBarProps {
   currentHp: number;
   maxHp: number;
   name: string;
   level: number;
   stats?: string;
+  isPlayer: boolean;
 }
 
 const HealthBar: React.FC<HealthBarProps> = ({
@@ -12,8 +15,10 @@ const HealthBar: React.FC<HealthBarProps> = ({
   name,
   level,
   stats,
+  isPlayer,
 }) => {
   const healthPercentage = (currentHp / maxHp) * 100;
+  const healthFlash = useBattleStore(state => isPlayer ? state.playerHealthFlash : state.opponentHealthFlash);
 
   return (
     <div className="w-full rounded-2xl bg-white/80 p-2 shadow-lg">
@@ -23,7 +28,7 @@ const HealthBar: React.FC<HealthBarProps> = ({
       </div>
       <div className="h-3 w-full rounded-full bg-gray-300">
         <div
-          className="h-3 rounded-full bg-green-500"
+          className={`h-3 rounded-full bg-green-500 ${healthFlash ? 'animate-health-flash' : ''}`}
           style={{ width: `${healthPercentage}%` }}
         ></div>
       </div>

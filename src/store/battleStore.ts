@@ -14,6 +14,8 @@ type GameStatus =
   | 'animating'
   | 'game_over';
 
+export type AnimationType = 'shake' | 'glow' | null;
+
 interface BattleStoreState {
   gameState: GameStatus;
   battleState: BattleState | null;
@@ -22,6 +24,10 @@ interface BattleStoreState {
   opponentChoiceId: string;
   player: (BattleCharacter & { maxHp: number }) | null;
   opponent: (BattleCharacter & { maxHp: number }) | null;
+  playerAnimation: AnimationType;
+  opponentAnimation: AnimationType;
+  playerHealthFlash: boolean;
+  opponentHealthFlash: boolean;
 }
 
 interface BattleStoreActions {
@@ -32,7 +38,7 @@ interface BattleStoreActions {
   restart: () => void;
 }
 
-// Helper function moved from App.tsx
+// Helper function to process battle log messages
 function processEvents(
   events: BattleEvent[],
   state: BattleState,
@@ -111,6 +117,10 @@ const useBattleStore = create<BattleStoreState & BattleStoreActions>(
     opponentChoiceId: '',
     player: null,
     opponent: null,
+    playerAnimation: null,
+    opponentAnimation: null,
+    playerHealthFlash: false,
+    opponentHealthFlash: false,
 
     // Actions
     setPlayerChoice: (id) => set({ playerChoiceId: id }),
@@ -132,23 +142,36 @@ const useBattleStore = create<BattleStoreState & BattleStoreActions>(
     },
 
     handleMove: (move) => {
-      const { battleState, opponent } = get();
-      if (get().gameState !== 'player_turn' || !battleState || !opponent)
-        return;
+      const { battleState } = get();
+      if (get().gameState !== 'player_turn' || !battleState) return;
 
-      set({ gameState: 'animating' });
+      set({ gameState: 'animating', playerAnimation: null, opponentAnimation: null });
 
-      // Player's turn
+      // --- Player's Turn ---
       const { state: playerTurnState, events: playerEvents } = takeTurn(
         battleState,
         'player',
         move.id
       );
-      const playerLogMessages = processEvents(
-        playerEvents,
-        playerTurnState,
-        move
-      );
+
+      // Handle animations for player turn
+      playerEvents.forEach(event => {
+        if (event.type === 'damage' || event.type === 'recoil') {
+          if (event.side === 'player') {
+            set({ playerAnimation: 'shake', playerHealthFlash: true });
+          } else {
+            set({ opponentAnimation: 'shake', opponentHealthFlash: true });
+          }
+        }
+        if (event.type === 'charge_started') {
+          set({ playerAnimation: 'glow' });
+        }
+        if (event.type === 'charge_released') {
+          set({ playerAnimation: null });
+        }
+      });
+
+      const playerLogMessages = processEvents(playerEvents, playerTurnState, move);
 
       set({
         battleState: playerTurnState,
@@ -157,12 +180,17 @@ const useBattleStore = create<BattleStoreState & BattleStoreActions>(
         battleLog: playerLogMessages,
       });
 
+      // Reset shake and flash animations
+      setTimeout(() => {
+        set({ playerAnimation: get().playerAnimation === 'shake' ? null : get().playerAnimation, opponentAnimation: get().opponentAnimation === 'shake' ? null : get().opponentAnimation, playerHealthFlash: false, opponentHealthFlash: false });
+      }, 500);
+
       if (playerTurnState.opponent.hp <= 0) {
         set({ gameState: 'game_over' });
         return;
       }
 
-      // Opponent's turn
+      // --- Opponent's Turn ---
       setTimeout(() => {
         const { battleState: currentBattleState } = get();
         if (!currentBattleState) return;
@@ -178,11 +206,24 @@ const useBattleStore = create<BattleStoreState & BattleStoreActions>(
           opponentMove.id
         );
 
-        const opponentLogMessages = processEvents(
-          opponentEvents,
-          opponentTurnState,
-          opponentMove
-        );
+        // Handle animations for opponent turn
+        opponentEvents.forEach(event => {
+          if (event.type === 'damage' || event.type === 'recoil') {
+            if (event.side === 'player') {
+              set({ playerAnimation: 'shake', playerHealthFlash: true });
+            } else {
+              set({ opponentAnimation: 'shake', opponentHealthFlash: true });
+            }
+          }
+          if (event.type === 'charge_started') {
+            set({ opponentAnimation: 'glow' });
+          }
+          if (event.type === 'charge_released') {
+            set({ opponentAnimation: null });
+          }
+        });
+
+        const opponentLogMessages = processEvents(opponentEvents, opponentTurnState, opponentMove);
 
         set((state) => ({
           battleState: opponentTurnState,
@@ -191,16 +232,18 @@ const useBattleStore = create<BattleStoreState & BattleStoreActions>(
           battleLog: [...state.battleLog, ...opponentLogMessages],
         }));
 
-        if (
-          opponentTurnState.player.hp <= 0 ||
-          opponentTurnState.opponent.hp <= 0
-        ) {
+        // Reset shake and flash animations
+        setTimeout(() => {
+          set({ playerAnimation: get().playerAnimation === 'shake' ? null : get().playerAnimation, opponentAnimation: get().opponentAnimation === 'shake' ? null : get().opponentAnimation, playerHealthFlash: false, opponentHealthFlash: false });
+        }, 500);
+
+        if (opponentTurnState.player.hp <= 0) {
           set({ gameState: 'game_over' });
           return;
         }
 
         set({ gameState: 'player_turn' });
-      }, 4000);
+      }, 2000); // Increased delay for opponent's turn to let animations play
     },
 
     restart: () => {
@@ -212,6 +255,10 @@ const useBattleStore = create<BattleStoreState & BattleStoreActions>(
         opponentChoiceId: '',
         player: null,
         opponent: null,
+        playerAnimation: null,
+        opponentAnimation: null,
+        playerHealthFlash: false,
+        opponentHealthFlash: false,
       });
     },
   })

@@ -60,12 +60,12 @@ const CharacterSelect = () => {
       </div>
       <div className="w-full max-w-4xl">
         <div className="my-4 flex w-full gap-4">
-          <div className="flex-1 rounded-2xl bg-green-500 px-6 py-3 text-center font-semibold text-white">
+          <div className="flex-1 rounded-2xl bg-[#4ADE80] px-6 py-3 text-center font-semibold text-white">
             {playerChoiceId
               ? `Player: ${CHARACTERS[playerChoiceId].name}`
               : 'Player'}
           </div>
-          <div className="flex-1 rounded-2xl bg-red-500 px-6 py-3 text-center font-semibold text-white">
+          <div className="flex-1 rounded-2xl bg-[#F87170] px-6 py-3 text-center font-semibold text-white">
             {opponentChoiceId
               ? `Opponent: ${CHARACTERS[opponentChoiceId]?.name}`
               : 'Opponent'}
