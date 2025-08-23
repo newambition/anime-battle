@@ -2,105 +2,91 @@ import HealthBar from './components/HealthBar.tsx';
 import BattleLog from './components/BattleLog.tsx';
 import CharacterSprite from './components/CharacterSprite.tsx';
 import CharacterSelect from './components/CharacterSelect.tsx';
-import { RotateCcw } from 'lucide-react';
-import Footer from './components/footer.tsx';
 import useBattleStore from './store/battleStore.ts';
+import HomeButton from './components/HomeButton.tsx';
+import MoveButton from './components/MoveButton.tsx';
 
 function App() {
-  const {
-    gameState,
-    player,
-    opponent,
-    battleLog,
-    handleMove,
-    restart,
-  } = useBattleStore();
+  const { gameState, player, opponent, battleLog, handleMove, restart } =
+    useBattleStore();
+
+  if (gameState === 'selecting') {
+    return <CharacterSelect />;
+  }
 
   return (
-    <div className="flex flex-col items-center justify-center gap-2">
-      <div className="bg-ab-bg flex max-h-dvh items-center justify-center px-2 py-1">
-        <div className="battle-container relative flex flex-col gap-4 rounded-xl p-2">
-          {gameState !== 'selecting' && (
-            <button
-              onClick={restart}
-              className="border-ab-border hover:bg-ab-highlight-44 absolute top-2 left-2 rounded-lg border-2 p-2 text-xl"
-            >
-              <RotateCcw
-                className="hover:text-ab-highlight-44 h-4 w-4"
-                strokeWidth={2}
-              />
-            </button>
-          )}
-          {gameState === 'selecting' ? (
-            <CharacterSelect />
-          ) : (
-            <div className="flex w-full flex-1 flex-col justify-between p-4 pt-16">
-              {opponent && (
-                <div className="flex w-full items-center justify-between gap-2 pt-8">
-                  <div className="order-2 flex-shrink-0">
-                    <CharacterSprite character={opponent} isPlayer={false} />
-                  </div>
-                  <div className="order-1 flex-1">
-                    <HealthBar
-                      name={opponent.name}
-                      currentHp={opponent.hp}
-                      maxHp={opponent.maxHp}
-                      variant="bl"
-                    />
-                  </div>
-                </div>
-              )}
-              {player && (
-                <div className="flex w-full items-center justify-between gap-2 pb-2">
-                  <div className="order-1 flex-shrink-0">
-                    <CharacterSprite character={player} isPlayer={true} />
-                  </div>
-                  <div className="order-2 flex-1">
-                    <HealthBar
-                      name={player.name}
-                      currentHp={player.hp}
-                      maxHp={player.maxHp}
-                      variant="br"
-                    />
-                  </div>
-                </div>
-              )}
-            </div>
-          )}
-
-          <div className="flex w-full flex-col gap-6 rounded-lg p-2">
-            <div className="w-full">
-              {gameState !== 'selecting' && battleLog.length > 0 && (
-                <BattleLog messages={battleLog} />
-              )}
-            </div>
-            <div className="grid w-full grid-cols-2 gap-2">
-              {gameState === 'game_over' ? (
-                <button
-                  onClick={restart}
-                  className="move-button col-span-2 text-xl"
-                >
-                  Restart
-                </button>
-              ) : gameState === 'selecting' || !player ? (
-                <div className="text-md col-span-2 text-center opacity-70"></div>
-              ) : (
-                player.moves.map((move) => (
-                  <button
-                    key={move.id}
-                    className="move-button text-sm"
-                    onClick={() => handleMove(move)}
-                    disabled={gameState !== 'player_turn'}
-                  >
-                    {move.name}
-                  </button>
-                ))
-              )}
-            </div>
-          </div>
-        </div>
+    <div className="flex h-screen flex-col p-4 text-white">
+      <div onClick={restart}>
+        <HomeButton />
       </div>
-      <Footer />
+
+      {/* Opponent Section */}
+      {opponent && (
+        <div className="mt-6 flex items-center justify-between">
+          <HealthBar
+            name={opponent.name}
+            currentHp={opponent.hp}
+            maxHp={opponent.maxHp}
+            level={5}
+            stats={`${opponent.hp}/${opponent.maxHp}`}
+          />
+          <CharacterSprite character={opponent} isPlayer={false} />
+        </div>
+      )}
+
+      {/*VS Card*/}
+      <div className="mx-auto mt-6 w-fit transform rounded-2xl bg-white/80 px-2 py-2 text-center text-black shadow-lg">
+        <h1 className="font-pixel text-md font-bold">⚔️ VS ⚔️</h1>
+      </div>
+
+      {/* Player Section */}
+      {player && (
+        <div className="mt-auto flex items-center justify-between">
+          <CharacterSprite character={player} isPlayer={true} />
+          <HealthBar
+            name={player.name}
+            currentHp={player.hp}
+            maxHp={player.maxHp}
+            level={5}
+            stats={`${player.hp}/${player.maxHp}`}
+          />
+        </div>
+      )}
+
+      {/* Battle Log */}
+      <div className="mb-6 rounded-2xl bg-white/80 p-4 text-black shadow-lg">
+        <BattleLog messages={battleLog} />
+      </div>
+
+      {/* Move Buttons */}
+      <div className="mb-2 grid grid-cols-2 gap-3">
+        {gameState === 'game_over' ? (
+          <button
+            onClick={restart}
+            className="col-span-2 rounded-2xl bg-blue-500 px-4 py-2 font-bold text-white shadow-lg"
+          >
+            Restart
+          </button>
+        ) : (
+          player?.moves.map((move) => (
+            <MoveButton
+              key={move.id}
+              name={move.name}
+              icon={move.emoji || ''}
+              color={
+                gameState === 'player_turn' ? 'bg-blue-500' : 'bg-gray-500'
+              }
+              disabled={gameState !== 'player_turn'}
+              selected={false}
+              onClick={() => {
+                if (gameState === 'player_turn') {
+                  handleMove(move);
+                }
+              }}
+            />
+          ))
+        )}
+      </div>
     </div>
   );
 }

@@ -1,25 +1,21 @@
-const CharacterSprite = ({
-  character,
-  isPlayer,
-}: {
-  character: any;
+import type { BattleCharacter } from '../engine/battleTypes.ts';
+
+type Props = {
+  character: BattleCharacter;
   isPlayer: boolean;
-}) => (
-  <div
-    className={`flex flex-col items-center ${isPlayer ? 'items-start' : 'items-end'}`}
-  >
-    <div className="sprite-placeholder">
-      {typeof character.sprite === 'string' && character.sprite.length <= 4 ? (
-        character.sprite
-      ) : (
-        <img
-          src={character.sprite}
-          alt={character.name}
-          className="h-full w-full object-contain"
-        />
-      )}
+};
+
+const CharacterSprite = ({ character, isPlayer }: Props) => {
+  const spritePath = character.sprite;
+  return (
+    <div className={`flex flex-col ${isPlayer ? 'items-start' : 'items-end'}`}>
+      <img
+        src={spritePath}
+        alt={character.name}
+        className="h-48 w-48 object-contain"
+      />
     </div>
-  </div>
-);
+  );
+};
 
 export default CharacterSprite;

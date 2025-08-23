@@ -13,22 +13,22 @@ The engine is designed around two key principles:
 
 The engine is composed of several modules, each with a distinct responsibility:
 
--   `engine.ts`: The main facade and entry point for the engine.
--   `battleTypes.ts`: Defines all the core data structures (`BattleState`, `BattleCharacter`, `BattleEvent`, etc.).
--   `battleData.ts`: Contains the static data for all characters and their moves.
--   `battleMath.ts`: A collection of pure functions for all mathematical calculations (damage, stat multipliers, accuracy rolls, etc.).
--   `effects.ts`: Pure functions for resolving the effects of moves (buffs, debuffs, statuses).
--   `charge.ts`: Pure functions for managing the state of multi-turn charge moves.
+- `engine.ts`: The main facade and entry point for the engine.
+- `battleTypes.ts`: Defines all the core data structures (`BattleState`, `BattleCharacter`, `BattleEvent`, etc.).
+- `battleData.ts`: Contains the static data for all characters and their moves.
+- `battleMath.ts`: A collection of pure functions for all mathematical calculations (damage, stat multipliers, accuracy rolls, etc.).
+- `effects.ts`: Pure functions for resolving the effects of moves (buffs, debuffs, statuses).
+- `charge.ts`: Pure functions for managing the state of multi-turn charge moves.
 
 ### Data Flow
 
 The typical data flow for a single turn is as follows:
 
-1.  **UI Interaction:** The user clicks a move button in the `App.tsx` component.
-2.  **Engine Call:** `App.tsx` calls the `takeTurn()` function from `engine.ts`, passing in the current `battleState`, the side taking the action ('player'), and the chosen `move.id`.
-3.  **Turn Processing:** `takeTurn()` executes the entire logic for the turn in a specific, ordered sequence (see *Resolution Order* below).
-4.  **State and Events Returned:** `takeTurn()` returns an object containing the new, updated `battleState` and an array of `BattleEvent` objects that occurred during the turn.
-5.  **UI Update:** `App.tsx` updates its own state with the new `battleState` and then processes the `events` array to render the appropriate messages in the `BattleLog` component.
+1.  **UI Interaction:** The user clicks a move button in a component like `App.tsx`.
+2.  **Store Action Call:** The UI component calls the relevant action from the `useBattleStore` hook (e.g., `handleMove(move)`).
+3.  **Engine Call:** The store action executes the game logic, calling the `takeTurn()` function from `engine.ts` with the current `battleState`.
+4.  **State Update:** The action receives the new state and events from the engine. It processes these events into user-friendly log messages and then updates the central store using `set()`.
+5.  **UI Re-render:** React components that are subscribed to the store via the `useBattleStore` hook automatically re-render to reflect the new state (updated health bars, new battle log messages, etc.).
 
 ## 3. The `takeTurn` Function
 
@@ -50,42 +50,40 @@ The typical data flow for a single turn is as follows:
 
 Given the engine's design, writing tests is straightforward.
 
--   **Testing Pure Helpers:** The functions in `battleMath.ts`, `effects.ts`, and `charge.ts` are all pure. They can be tested by providing known inputs and asserting that the output is as expected. For functions involving randomness (`rollHit`, `rollCrit`), you can pass a mocked `rng` function that returns a predictable sequence of numbers.
+- **Testing Pure Helpers:** The functions in `battleMath.ts`, `effects.ts`, and `charge.ts` are all pure. They can be tested by providing known inputs and asserting that the output is as expected. For functions involving randomness (`rollHit`, `rollCrit`), pass a mocked `rng` function that returns a predictable sequence of numbers.
 
-    *Example (Jest):*
-    ```javascript
-    import { computeDamage } from './battleMath';
+- **Testing the Store:** With the new architecture, test the game's flow by directly calling the actions on the Zustand store and asserting on the resulting state changes. This allows for testing the entire game loop without needing to simulate UI interactions.
 
-    test('should calculate damage correctly', () => {
-      // Attacker: 100 ATK, 0 stages
-      // Defender: 80 DEF, 0 stages
-      // Move: 90 Power
-      const damage = computeDamage(100, 0, 80, 0, 90, false, 0);
-      expect(damage).toBe(55); // Or whatever the expected value is
-    });
-    ```
+  _Example (Jest/Vitest):_
 
--   **Testing the Full Turn:** You can test the entire `takeTurn` function by creating an initial `BattleState`, calling `takeTurn` with a specific move, and then inspecting both the resulting `BattleState` and the `BattleEvent` array to ensure the turn resolved as expected.
+  ```javascript
+  import useBattleStore from '../src/store/battleStore';
+  import { CHARACTERS } from '../src/data/battleData';
 
-    *Example (Jest):*
-    ```javascript
-    import { initializeBattleState, takeTurn } from './engine';
-    import { CHARACTERS } from '../data/battleData';
+  test('handleMove action should damage opponent and update state', () => {
+    // Set initial state for the test
+    useBattleStore.getState().startBattle(); // Assuming default characters
+    const initialState = useBattleStore.getState().battleState;
 
-    test('player should damage opponent', () => {
-      const initialState = initializeBattleState(CHARACTERS.p001, CHARACTERS.p002);
-      const { state: finalState, events } = takeTurn(initialState, 'player', 'm001');
+    // Get a move to use
+    const playerMove = initialState.player.moves[0];
 
-      // Check final state
-      expect(finalState.opponent.hp).toBeLessThan(initialState.opponent.hp);
+    // Call the action
+    useBattleStore.getState().handleMove(playerMove);
 
-      // Check events
-      const damageEvent = events.find(e => e.type === 'damage');
-      expect(damageEvent).toBeDefined();
-      expect(damageEvent.target).toBe('opponent');
-    });
-    ```
+    // Assert on the new state
+    const finalState = useBattleStore.getState().battleState;
+    expect(finalState.opponent.hp).toBeLessThan(initialState.opponent.hp);
+    expect(useBattleStore.getState().battleLog.length).toBeGreaterThan(1);
+  });
+  ```
 
-## 5. Future Architecture (Zustand)
+## 5. State Management (Zustand)
 
-As documented in `docs/movesPlan.md`, the current state management in `App.tsx` using `useState` and `useEffect` is functional but has proven to be a source of bugs. The next major architectural improvement will be to migrate the application's state management to **Zustand**. This will centralize the `battleState` and all related actions (like `handleMove`) into a store, decoupling the core logic from the UI and eliminating complex `useEffect` dependencies.
+The application's state is managed by a centralized Zustand store located at `src/store/battleStore.ts`. This approach was adopted to resolve race conditions and simplify the logic that was previously handled by a complex chain of `useState` and `useEffect` hooks in the main `App.tsx` component.
+
+By using Zustand, we achieve:
+
+- **Centralized State:** A single source of truth for all battle-related data.
+- **Decoupled Logic:** The UI components are decoupled from the business logic. They simply read state from the store and dispatch actions.
+- **Improved Testability:** The entire game flow can be tested by interacting with the store's actions directly.

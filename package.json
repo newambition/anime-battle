@@ -13,7 +13,7 @@
     "lucide-react": "^0.540.0",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
-    "vite-pwa": "^1.0.2",
+    "vite-plugin-pwa": "^1.0.3",
     "zustand": "^5.0.8"
   },
   "devDependencies": {

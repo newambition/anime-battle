@@ -1,5 +1,6 @@
 import { CHARACTERS } from '../data/battleData.ts';
 import useBattleStore from '../store/battleStore.ts';
+import CharacterCard from './CharacterCard.tsx';
 
 const CharacterSelect = () => {
   const {
@@ -10,56 +11,73 @@ const CharacterSelect = () => {
     startBattle,
   } = useBattleStore();
 
+  const handleSelect = (id: string) => {
+    if (playerChoiceId === id) {
+      setPlayerChoice('');
+      return;
+    }
+    if (opponentChoiceId === id) {
+      setOpponentChoice('');
+      return;
+    }
+    if (playerChoiceId === '') {
+      setPlayerChoice(id);
+      return;
+    }
+    if (opponentChoiceId === '') {
+      if (playerChoiceId !== id) {
+        setOpponentChoice(id);
+      }
+      return;
+    }
+  };
+
+  const getSelectionType = (id: string) => {
+    if (playerChoiceId === id) {
+      return 'player';
+    }
+    if (opponentChoiceId === id) {
+      return 'opponent';
+    }
+    return null;
+  };
+
   return (
-    <div className="flex w-full flex-col items-center justify-center gap-4 p-4 pt-6">
-      <div className="mangat-bold mt-4 text-center text-2xl leading-loose tracking-tight">
-        {'{ '}Choose Your{' }'} <br /> {'{ '}Fighters{' }'}
-      </div>
-      <img src="src/assets/MenuImage.png" alt="Characters" className="w-full" />
-      <div className="flex w-full flex-col items-center gap-6">
-        <div className="flex flex-col items-center gap-4">
-          <div className="text-md text-center font-medium">Your Character</div>
-          <select
-            className="move-button-user max-w-56 min-w-48 text-sm"
-            value={playerChoiceId}
-            onChange={(e) => setPlayerChoice(e.target.value)}
-          >
-            {Object.entries(CHARACTERS).map(([id, ch]) => (
-              <option key={id} value={id}>
-                {ch.name}
-              </option>
-            ))}
-          </select>
-        </div>
-        <div className="flex flex-col items-center gap-4">
-          <div className="text-md text-center font-medium">Opponent</div>
-          <select
-            className="move-button-opponent max-w-56 min-w-48 text-sm"
-            value={opponentChoiceId}
-            onChange={(e) => setOpponentChoice(e.target.value)}
-          >
-            {Object.entries(CHARACTERS).map(([id, ch]) => (
-              <option key={id} value={id}>
-                {ch.name}
-              </option>
-            ))}
-          </select>
-        </div>
-      </div>
-      <div className="flex justify-center pt-10">
-        <div className="relative inline-block">
-          <button
-            onClick={startBattle}
-            className="menu-button mangat-bold text-xl"
-          >
-            Start Battle...
-          </button>
-          <img
-            src="src/assets/winkHeart.svg"
-            alt="Wink Heart"
-            className="pointer-events-none absolute -top-4 -left-3 w-10 -rotate-12 select-none"
+    <div className="flex h-screen flex-col items-center justify-center p-4">
+      <h1 className="font-pixel mt-4 mb-4 text-center text-2xl font-bold tracking-wider text-white">
+        Choose Your Fighter
+      </h1>
+      <div className="grid max-w-4xl grid-cols-3 gap-4 overflow-y-auto md:grid-cols-4">
+        {Object.entries(CHARACTERS).map(([id, character]) => (
+          <CharacterCard
+            key={id}
+            name={character.name}
+            sprite={character.sprite}
+            selectionType={getSelectionType(id)}
+            onClick={() => handleSelect(id)}
           />
+        ))}
+      </div>
+      <div className="w-full max-w-4xl">
+        <div className="my-4 flex w-full gap-4">
+          <div className="flex-1 rounded-2xl bg-green-500 px-6 py-3 text-center font-semibold text-white">
+            {playerChoiceId
+              ? `Player: ${CHARACTERS[playerChoiceId].name}`
+              : 'Player'}
+          </div>
+          <div className="flex-1 rounded-2xl bg-red-500 px-6 py-3 text-center font-semibold text-white">
+            {opponentChoiceId
+              ? `Opponent: ${CHARACTERS[opponentChoiceId]?.name}`
+              : 'Opponent'}
+          </div>
         </div>
+        <button
+          className="font-pixel w-full cursor-pointer rounded-2xl bg-white px-8 py-4 text-xl font-bold text-gray-800 transition-colors hover:bg-gray-100"
+          onClick={startBattle}
+          disabled={!playerChoiceId || !opponentChoiceId}
+        >
+          Battle! ✨
+        </button>
       </div>
     </div>
   );

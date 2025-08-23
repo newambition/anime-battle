@@ -199,7 +199,7 @@ Plan progress
 
 ### Phase 5 – Architectural Refactor (Future)
 
-- [ ] Phase 5 – Step 5.1: Migrate State to Zustand
+- [x] Phase 5 – Step 5.1: Migrate State to Zustand (2025-08-21)
   - Description: To improve stability and eliminate `useEffect` complexity, migrate the application state (`battleState`, `gameState`, etc.) from `useState` hooks in `App.tsx` to a centralized Zustand store.
   - Files: `src/App.tsx`, `src/store/battleStore.ts` (new)
   - Acceptance: The game is fully functional using the Zustand store for all state management. The `App.tsx` component is simplified to a view layer that reads from the store.

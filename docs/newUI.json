@@ -1,0 +1,133 @@
+"battleScreen": {
+    "background": "bg-gradient-to-br from-purple-300 via-purple-400 to-blue-400",
+    "layout": {
+      "opponent": {
+        "position": "top-left",
+        "healthBar": {
+          "name": "opponent",
+          "level": "Lv5",
+          "barColor": "bg-green-500",
+          "width": "full"
+        },
+        "sprite": {
+          "character": "opponent",
+          "position": "top-right"
+        }
+      },
+      "player": {
+        "position": "bottom-left", 
+        "healthBar": {
+          "name": "player",
+          "level": "Lv5", 
+          "barColor": "bg-green-500",
+          "width": "45%",
+          "stats": "45/100"
+        },
+        "sprite": {
+          "character": "player",
+          "position": "center-left"
+        }
+      },
+      "battleLog": {
+        "position": "center",
+        "background": "bg-white/80 rounded-lg p-4",
+        "content": [
+          "💥 player used move",
+          "🛡️ opponent's defense rose!"
+        ]
+      },
+      "moveButtons": {
+        "position": "bottom",
+        "layout": "grid-cols-2 gap-2",
+        "moves": [
+          {
+            "name": "move",
+            "icon": "move.emoji",
+            "color": "bg-blue-500",
+            "selected": true
+          },
+          {
+            "name": "move", 
+            "icon": "move.emoji",
+            "color": "bg-white"
+          },
+          {
+            "name": "move",
+            "icon": "move.emoji", 
+            "color": "bg-white"
+          },
+          {
+            "name": "move",
+            "icon": "move.emoji",
+            "color": "bg-white"
+          }
+        ]
+      }
+    },
+    "homeIcon": {
+      "position": "top-right",
+      "icon": "anticlockwise-arrows-cw",
+      "background": "bg-white rounded-full"
+    }
+  },
+  "characterSelectScreen": {
+    "background": "bg-gradient-to-br from-purple-300 via-purple-400 to-blue-400",
+    "title": {
+      "text": "Choose Your Fighter",
+      "style": "text-white text-3xl font-bold text-center mb-8 pixelated-font"
+    },
+    "characterGrid": {
+      "layout": "grid-cols-4 gap-4 max-w-4xl",
+      "characters": [
+        {"name": "Goku", "sprite": "GokuSprite", "selected": true, "border": "border-green-400", "series": "Dragon Ball"},
+        {"name": "Vegeta", "sprite": "VegetaSprite", "selected": false, "border": "border-gray-300", "series": "Dragon Ball"}, 
+        {"name": "Naruto", "sprite": "NarutoSprite", "selected": false, "border": "border-red-400", "series": "Naruto"},
+        {"name": "Sasuke", "sprite": "SasukeSprite", "selected": false, "border": "border-gray-300", "series": "Naruto"},
+        {"name": "Luffy", "sprite": "LuffySprite", "selected": false, "border": "border-gray-300", "series": "One Piece"},
+        {"name": "Zoro", "sprite": "ZoroSprite", "selected": false, "border": "border-gray-300", "series": "One Piece"},
+        {"name": "Midoriya", "sprite": "MidoriyaSprite", "selected": false, "border": "border-gray-300", "series": "My Hero Academia"},
+        {"name": "Bakugo", "sprite": "BakugoSprite", "selected": false, "border": "border-gray-300", "series": "My Hero Academia"},
+        {"name": "Gojo", "sprite": "GojoSprite", "selected": false, "border": "border-gray-300", "series": "Jujutsu Kaisen"},
+        {"name": "Yuji", "sprite": "YujiSprite", "selected": false, "border": "border-gray-300", "series": "Jujutsu Kaisen"},
+        {"name": "Eren", "sprite": "ErenSprite", "selected": false, "border": "border-gray-300", "series": "Attack on Titan"},
+        {"name": "Mikasa", "sprite": "MikasaSprite", "selected": false, "border": "border-gray-300", "series": "Attack on Titan"},
+        {"name": "Edward", "sprite": "EdwardSprite", "selected": false, "border": "border-gray-300", "series": "Fullmetal Alchemist"},
+        {"name": "Roy", "sprite": "RoySprite", "selected": false, "border": "border-gray-300", "series": "Fullmetal Alchemist"},
+        {"name": "Sebastian", "sprite": "SebastianSprite", "selected": false, "border": "border-gray-300", "series": "Black Butler"},
+        {"name": "Ciel", "sprite": "CielSprite", "selected": false, "border": "border-gray-300", "series": "Black Butler"},
+        {"name": "Kanao", "sprite": "KanaoSprite", "selected": false, "border": "border-gray-300", "series": "Demon Slayer"}
+      ],
+      "characterCard": {
+        "background": "bg-white rounded-lg p-4",
+        "spriteSize": "w-16 h-16",
+        "nameStyle": "text-center font-semibold mt-2",
+        "selectedStyle": "border-4 border-green-400",
+        "hoverStyle": "hover:scale-105 transition-transform cursor-pointer"
+      }
+    },
+    "playerSelection": {
+      "position": "bottom",
+      "layout": "flex gap-4 mb-4",
+      "player": {
+        "text": "Player: player",
+        "background": "bg-green-500 text-white px-6 py-3 rounded-lg font-semibold"
+      },
+      "opponent": {
+        "text": "Opponent: opponent", 
+        "background": "bg-red-500 text-white px-6 py-3 rounded-lg font-semibold"
+      }
+    },
+    "battleButton": {
+      "text": "Battle! ✨",
+      "style": "bg-white text-gray-800 px-8 py-4 rounded-lg font-bold text-xl hover:bg-gray-100 transition-colors cursor-pointer"
+    }
+  },
+  "commonStyles": {
+    "pixelatedFont": "font-mono antialiased",
+    "cardShadow": "shadow-lg",
+    "transitions": "transition-all duration-200",
+    "borderRadius": "rounded-lg",
+    "healthBarHeight": "h-3",
+    "buttonPadding": "px-4 py-2"
+  }
+}

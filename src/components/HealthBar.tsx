@@ -1,36 +1,37 @@
-const HealthBar = ({
-  currentHp,
-  maxHp,
-  name,
-  level = 5,
-  variant = 'bl',
-}: {
+interface HealthBarProps {
   currentHp: number;
   maxHp: number;
   name: string;
-  level?: number;
-  variant?: 'bl' | 'br';
+  level: number;
+  stats?: string;
+}
+
+const HealthBar: React.FC<HealthBarProps> = ({
+  currentHp,
+  maxHp,
+  name,
+  level,
+  stats,
 }) => {
   const healthPercentage = (currentHp / maxHp) * 100;
-  const containerClassName = `${variant === 'br' ? 'battle-box-br' : 'battle-box-bl'} w-full`;
+
   return (
-    <div className={containerClassName}>
+    <div className="w-full rounded-2xl bg-white/80 p-2 shadow-lg">
       <div className="mb-1 flex items-center justify-between">
-        <span className="mangat-bold text-sm">{name}</span>
-        <span className="text-sm">Lv{level}</span>
+        <span className="font-bold text-black">{name}</span>
+        <span className="font-pixel text-xs text-black">Lv{level}</span>
       </div>
-      <div className="health-bar-bg">
+      <div className="h-3 w-full rounded-full bg-gray-300">
         <div
-          className="health-bar"
-          style={{
-            width: `${healthPercentage}%`,
-            backgroundColor: healthPercentage < 25 ? '#FF4500' : '#32CD32',
-          }}
+          className="h-3 rounded-full bg-green-500"
+          style={{ width: `${healthPercentage}%` }}
         ></div>
       </div>
-      <div className="mt-1 text-right text-sm font-bold">
-        {currentHp} / {maxHp}
-      </div>
+      {stats && (
+        <div className="font-pixel mt-2 text-right text-xs font-bold text-black">
+          {stats}
+        </div>
+      )}
     </div>
   );
 };

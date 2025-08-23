@@ -56,6 +56,7 @@ export type Move = {
   highCritChance?: boolean;
   chargeTurns?: number;
   chance?: number;
+  emoji?: string;
 };
 
 export type Character = {
@@ -80,10 +81,17 @@ export const CHARACTERS: Record<string, Character> = {
     attack: 110,
     defense: 70,
     moves: [
-      { id: 'm001', name: 'Crimson Slash', power: 70, accuracy: 0.95 },
+      {
+        id: 'm001',
+        name: 'Crimson Slash',
+        power: 70,
+        accuracy: 0.95,
+        emoji: '⚔️',
+      },
       {
         id: 'm002',
         name: 'Plum Spirit',
+        emoji: '🍒',
         power: 0,
         accuracy: 1.0,
         effect: 'defense_up',
@@ -92,6 +100,7 @@ export const CHARACTERS: Record<string, Character> = {
       {
         id: 'm003',
         name: 'Vermilion Eye',
+        emoji: '👁️',
         power: 70,
         accuracy: 0.6,
         recoilDamage: 20,
@@ -99,6 +108,7 @@ export const CHARACTERS: Record<string, Character> = {
       {
         id: 'm004',
         name: 'Flower Breathing',
+        emoji: '🌸',
         power: 0,
         accuracy: 1.0,
         effect: 'attack_up',
@@ -106,8 +116,8 @@ export const CHARACTERS: Record<string, Character> = {
       },
     ],
   },
-  p002: {
-    id: 'p002',
+  e001: {
+    id: 'e001',
     name: 'Naruto Uzumaki',
     //series: 'Naruto',
     sprite: NarutoSprite,
@@ -115,7 +125,7 @@ export const CHARACTERS: Record<string, Character> = {
     attack: 95,
     defense: 80,
     moves: [
-      { id: 'm005', name: 'Rasengan', power: 50, accuracy: 1.0 },
+      { id: 'm005', name: 'Rasengan', power: 50, accuracy: 1.0, emoji: '🌀' },
       {
         id: 'm006',
         name: 'Shadow Clones',
@@ -123,6 +133,7 @@ export const CHARACTERS: Record<string, Character> = {
         accuracy: 1.0,
         effect: 'defense_up',
         value: 2,
+        emoji: '👥',
       },
       {
         id: 'm007',
@@ -132,8 +143,9 @@ export const CHARACTERS: Record<string, Character> = {
         effect: 'attack_up',
         value: 2,
         hpCost: 15,
+        emoji: '🦊',
       },
-      { id: 'm008', name: 'Giant Rasengan', power: 60, accuracy: 0.9 },
+      { id: 'm008', name: 'Giant Rasengan', power: 60, accuracy: 0.9, emoji: '🌀' },
     ],
   },
   p003: {
@@ -152,8 +164,9 @@ export const CHARACTERS: Record<string, Character> = {
         accuracy: 1.0,
         effect: 'self_defense_down',
         value: 1,
+        emoji: '⚡️',
       },
-      { id: 'm010', name: 'Fireball Jutsu', power: 75, accuracy: 1.0 },
+      { id: 'm010', name: 'Fireball Jutsu', power: 75, accuracy: 1.0, emoji: '🔥' },
       {
         id: 'm011',
         name: 'Sharingan',
@@ -161,6 +174,7 @@ export const CHARACTERS: Record<string, Character> = {
         accuracy: 1.0,
         effect: 'accuracy_up',
         value: 1,
+        emoji: '👁️',
       },
       {
         id: 'm012',
@@ -168,6 +182,7 @@ export const CHARACTERS: Record<string, Character> = {
         power: 150,
         accuracy: 0.85,
         recoilDamage: 25,
+        emoji: '🐉',
       },
     ],
   },
@@ -180,7 +195,7 @@ export const CHARACTERS: Record<string, Character> = {
     attack: 100,
     defense: 90,
     moves: [
-      { id: 'm013', name: 'Kamehameha', power: 90, accuracy: 1.0 },
+      { id: 'm013', name: 'Kamehameha', power: 90, accuracy: 1.0, emoji: '🐢' },
       {
         id: 'm014',
         name: 'Kaioken',
@@ -189,6 +204,7 @@ export const CHARACTERS: Record<string, Character> = {
         effect: 'attack_up',
         value: 2,
         recoilDamage: 20,
+        emoji: '🔥',
       },
       {
         id: 'm015',
@@ -197,6 +213,7 @@ export const CHARACTERS: Record<string, Character> = {
         accuracy: 1.0,
         effect: 'defense_up',
         value: 1,
+        emoji: '✨',
       },
       {
         id: 'm016',
@@ -204,6 +221,7 @@ export const CHARACTERS: Record<string, Character> = {
         power: 180,
         accuracy: 0.9,
         chargeTurns: 1,
+        emoji: '☄️',
       }, // Requires 1 turn to charge
     ],
   },
@@ -216,7 +234,7 @@ export const CHARACTERS: Record<string, Character> = {
     attack: 105,
     defense: 85,
     moves: [
-      { id: 'm017', name: 'Galick Gun', power: 85, accuracy: 1.0 },
+      { id: 'm017', name: 'Galick Gun', power: 85, accuracy: 1.0, emoji: '🔫' },
       {
         id: 'm018',
         name: 'Saiyan Pride',
@@ -224,8 +242,9 @@ export const CHARACTERS: Record<string, Character> = {
         accuracy: 1.0,
         effect: 'attack_up',
         value: 2,
+        emoji: '💪',
       },
-      { id: 'm019', name: 'Big Bang Attack', power: 100, accuracy: 0.95 },
+      { id: 'm019', name: 'Big Bang Attack', power: 100, accuracy: 0.95, emoji: '💥' },
       {
         id: 'm020',
         name: 'Final Flash',
@@ -233,6 +252,7 @@ export const CHARACTERS: Record<string, Character> = {
         accuracy: 0.9,
         effect: 'self_defense_down',
         value: 2,
+        emoji: '⚡️',
       },
     ],
   },
@@ -245,7 +265,7 @@ export const CHARACTERS: Record<string, Character> = {
     attack: 95,
     defense: 90,
     moves: [
-      { id: 'm021', name: 'Gum-Gum Pistol', power: 70, accuracy: 1.0 },
+      { id: 'm021', name: 'Gum-Gum Pistol', power: 70, accuracy: 1.0, emoji: '👊' },
       {
         id: 'm022',
         name: 'Gear Second',
@@ -254,6 +274,7 @@ export const CHARACTERS: Record<string, Character> = {
         effect: 'attack_up',
         value: 1,
         hpCost: 10,
+        emoji: '⚙️',
       },
       {
         id: 'm023',
@@ -261,8 +282,9 @@ export const CHARACTERS: Record<string, Character> = {
         power: 25,
         accuracy: 0.95,
         hits: 3,
+        emoji: '👊',
       }, // Hits 3 times
-      { id: 'm024', name: 'Elephant Gun', power: 130, accuracy: 0.9 },
+      { id: 'm024', name: 'Elephant Gun', power: 130, accuracy: 0.9, emoji: '🐘' },
     ],
   },
   p007: {
@@ -274,14 +296,15 @@ export const CHARACTERS: Record<string, Character> = {
     attack: 115,
     defense: 80,
     moves: [
-      { id: 'm025', name: 'Oni Giri', power: 15, accuracy: 1.0 },
-      { id: 'm026', name: 'Dragon Twister', power: 25, accuracy: 0.7 },
+      { id: 'm025', name: 'Oni Giri', power: 15, accuracy: 1.0, emoji: '👹' },
+      { id: 'm026', name: 'Dragon Twister', power: 25, accuracy: 0.7, emoji: '🐉' },
       {
         id: 'm027',
         name: 'Shishi Sonson',
         power: 70,
         accuracy: 1.0,
         highCritChance: true,
+        emoji: '🦁',
       },
       {
         id: 'm028',
@@ -292,6 +315,7 @@ export const CHARACTERS: Record<string, Character> = {
           { type: 'attack_up', value: 3 },
           { type: 'self_defense_down', value: 1 },
         ],
+        emoji: '😈',
       },
     ],
   },
@@ -304,7 +328,7 @@ export const CHARACTERS: Record<string, Character> = {
     attack: 100,
     defense: 65,
     moves: [
-      { id: 'm029', name: 'Titan Punch', power: 90, accuracy: 0.95 },
+      { id: 'm029', name: 'Titan Punch', power: 90, accuracy: 0.95, emoji: '👊' },
       {
         id: 'm030',
         name: 'Harden',
@@ -312,6 +336,7 @@ export const CHARACTERS: Record<string, Character> = {
         accuracy: 1.0,
         effect: 'defense_up',
         value: 2,
+        emoji: '🛡️',
       },
       {
         id: 'm031',
@@ -322,6 +347,7 @@ export const CHARACTERS: Record<string, Character> = {
           { type: 'attack_up', value: 2 },
           { type: 'self_defense_down', value: 2 },
         ],
+        emoji: '😡',
       },
       {
         id: 'm032',
@@ -329,6 +355,7 @@ export const CHARACTERS: Record<string, Character> = {
         power: 150,
         accuracy: 0.8,
         recoilDamage: 40,
+        emoji: '💥',
       },
     ],
   },
@@ -341,7 +368,7 @@ export const CHARACTERS: Record<string, Character> = {
     attack: 110,
     defense: 75,
     moves: [
-      { id: 'm033', name: 'Blade Dance', power: 40, accuracy: 0.9, hits: 2 }, // Hits 2 times
+      { id: 'm033', name: 'Blade Dance', power: 40, accuracy: 0.9, hits: 2, emoji: '⚔️' }, // Hits 2 times
       {
         id: 'm034',
         name: 'Gas Burst',
@@ -349,6 +376,7 @@ export const CHARACTERS: Record<string, Character> = {
         accuracy: 1.0,
         effect: 'defense_up',
         value: 1,
+        emoji: '💨',
       },
       {
         id: 'm035',
@@ -357,6 +385,7 @@ export const CHARACTERS: Record<string, Character> = {
         accuracy: 0.9,
         effect: 'defense_ignore',
         value: 0.25,
+        emoji: '⚡️',
       }, // Ignores 25% of defense
       {
         id: 'm036',
@@ -365,6 +394,7 @@ export const CHARACTERS: Record<string, Character> = {
         accuracy: 1.0,
         effect: 'attack_up',
         value: 2,
+        emoji: '💪',
       },
     ],
   },
@@ -377,7 +407,7 @@ export const CHARACTERS: Record<string, Character> = {
     attack: 120,
     defense: 80,
     moves: [
-      { id: 'm037', name: 'Cursed Technique: Red', power: 20, accuracy: 1.0 },
+      { id: 'm037', name: 'Cursed Technique: Red', power: 20, accuracy: 1.0, emoji: '🔴' },
       {
         id: 'm038',
         name: 'Limitless',
@@ -385,6 +415,7 @@ export const CHARACTERS: Record<string, Character> = {
         accuracy: 1.0,
         effect: 'invulnerable',
         turns: 1,
+        emoji: '♾️',
       }, // Cannot be hit for 1 turn
       {
         id: 'm039',
@@ -393,6 +424,7 @@ export const CHARACTERS: Record<string, Character> = {
         accuracy: 1.0,
         effect: 'accuracy_up',
         value: 2,
+        emoji: '👀',
       },
       {
         id: 'm040',
@@ -400,6 +432,7 @@ export const CHARACTERS: Record<string, Character> = {
         power: 70,
         accuracy: 0.6,
         hpCost: 30,
+        emoji: '🟣',
       },
     ],
   },
@@ -412,7 +445,7 @@ export const CHARACTERS: Record<string, Character> = {
     attack: 100,
     defense: 85,
     moves: [
-      { id: 'm041', name: 'Divergent Fist', power: 75, accuracy: 1.0 },
+      { id: 'm041', name: 'Divergent Fist', power: 75, accuracy: 1.0, emoji: '👊' },
       {
         id: 'm042',
         name: 'Cursed Energy Flow',
@@ -420,14 +453,16 @@ export const CHARACTERS: Record<string, Character> = {
         accuracy: 1.0,
         effect: 'attack_up',
         value: 1,
+        emoji: '✨',
       },
-      { id: 'm043', name: 'Slaughter Demon', power: 85, accuracy: 0.95 },
+      { id: 'm043', name: 'Slaughter Demon', power: 85, accuracy: 0.95, emoji: '😈' },
       {
         id: 'm044',
         name: 'Black Flash',
         power: 120,
         accuracy: 0.75,
         highCritChance: true,
+        emoji: '⚫',
       },
     ],
   },
@@ -440,7 +475,7 @@ export const CHARACTERS: Record<string, Character> = {
     attack: 100,
     defense: 80,
     moves: [
-      { id: 'm045', name: 'Delaware Smash', power: 70, accuracy: 1.0 },
+      { id: 'm045', name: 'Delaware Smash', power: 70, accuracy: 1.0, emoji: '💥' },
       {
         id: 'm046',
         name: 'Full Cowl',
@@ -450,6 +485,7 @@ export const CHARACTERS: Record<string, Character> = {
           { type: 'attack_up', value: 1 },
           { type: 'defense_up', value: 1 },
         ],
+        emoji: '⚡️',
       },
       {
         id: 'm047',
@@ -457,6 +493,7 @@ export const CHARACTERS: Record<string, Character> = {
         power: 110,
         accuracy: 0.95,
         recoilDamage: 20,
+        emoji: '💥',
       },
       {
         id: 'm048',
@@ -464,6 +501,7 @@ export const CHARACTERS: Record<string, Character> = {
         power: 160,
         accuracy: 0.9,
         recoilDamage: 50,
+        emoji: '💪',
       },
     ],
   },
@@ -476,7 +514,7 @@ export const CHARACTERS: Record<string, Character> = {
     attack: 115,
     defense: 70,
     moves: [
-      { id: 'm049', name: 'Explosion Burst', power: 75, accuracy: 1.0 },
+      { id: 'm049', name: 'Explosion Burst', power: 75, accuracy: 1.0, emoji: '💥' },
       {
         id: 'm050',
         name: 'Stun Grenade',
@@ -484,6 +522,7 @@ export const CHARACTERS: Record<string, Character> = {
         accuracy: 0.9,
         effect: 'accuracy_down',
         value: 1,
+        emoji: '💣',
       },
       {
         id: 'm051',
@@ -492,6 +531,7 @@ export const CHARACTERS: Record<string, Character> = {
         accuracy: 0.95,
         effect: 'defense_ignore',
         value: 0.2,
+        emoji: '🔫',
       }, // Ignores 20% of defense
       {
         id: 'm052',
@@ -499,6 +539,7 @@ export const CHARACTERS: Record<string, Character> = {
         power: 140,
         accuracy: 0.9,
         recoilDamage: 30,
+        emoji: '💥',
       },
     ],
   },
@@ -511,7 +552,7 @@ export const CHARACTERS: Record<string, Character> = {
     attack: 95,
     defense: 95,
     moves: [
-      { id: 'm053', name: 'Alchemy Spear', power: 70, accuracy: 1.0 },
+      { id: 'm053', name: 'Alchemy Spear', power: 70, accuracy: 1.0, emoji: '🔱' },
       {
         id: 'm054',
         name: 'Fortify',
@@ -519,6 +560,7 @@ export const CHARACTERS: Record<string, Character> = {
         accuracy: 1.0,
         effect: 'defense_up',
         value: 2,
+        emoji: '🛡️',
       },
       {
         id: 'm055',
@@ -526,6 +568,7 @@ export const CHARACTERS: Record<string, Character> = {
         power: 85,
         accuracy: 0.95,
         highCritChance: true,
+        emoji: '⚔️',
       },
       {
         id: 'm056',
@@ -534,6 +577,7 @@ export const CHARACTERS: Record<string, Character> = {
         accuracy: 1.0,
         effect: 'enemy_defense_down',
         value: 1,
+        emoji: '💥',
       },
     ],
   },
@@ -546,7 +590,7 @@ export const CHARACTERS: Record<string, Character> = {
     attack: 120,
     defense: 65,
     moves: [
-      { id: 'm057', name: 'Flame Alchemy', power: 90, accuracy: 1.0 },
+      { id: 'm057', name: 'Flame Alchemy', power: 90, accuracy: 1.0, emoji: '🔥' },
       {
         id: 'm058',
         name: 'Ignition',
@@ -554,6 +598,7 @@ export const CHARACTERS: Record<string, Character> = {
         accuracy: 1.0,
         effect: 'attack_up',
         value: 2,
+        emoji: '🔥',
       },
       {
         id: 'm059',
@@ -561,8 +606,9 @@ export const CHARACTERS: Record<string, Character> = {
         power: 70,
         accuracy: 1.0,
         highCritChance: true,
+        emoji: '🔥',
       },
-      { id: 'm060', name: 'Inferno', power: 130, accuracy: 0.9 },
+      { id: 'm060', name: 'Inferno', power: 130, accuracy: 0.9, emoji: '🔥' },
     ],
   },
   p016: {
@@ -574,7 +620,7 @@ export const CHARACTERS: Record<string, Character> = {
     attack: 125,
     defense: 95,
     moves: [
-      { id: 'm085', name: 'Silver Knife Flurry', power: 80, accuracy: 1.0 },
+      { id: 'm085', name: 'Silver Knife Flurry', power: 80, accuracy: 1.0, emoji: '🔪' },
       {
         id: 'm086',
         name: "Butler's Grace",
@@ -582,6 +628,7 @@ export const CHARACTERS: Record<string, Character> = {
         accuracy: 1.0,
         effect: 'defense_up',
         value: 2,
+        emoji: '🤵',
       },
       {
         id: 'm087',
@@ -590,6 +637,7 @@ export const CHARACTERS: Record<string, Character> = {
         accuracy: 0.9,
         effect: 'enemy_defense_down',
         value: 1,
+        emoji: '😈',
       },
       {
         id: 'm088',
@@ -598,6 +646,7 @@ export const CHARACTERS: Record<string, Character> = {
         accuracy: 1.0,
         effect: 'attack_up',
         value: 2,
+        emoji: '📜',
       },
     ],
   },
@@ -610,7 +659,7 @@ export const CHARACTERS: Record<string, Character> = {
     attack: 60,
     defense: 65,
     moves: [
-      { id: 'm089', name: 'Sebastian, an Order', power: 50, accuracy: 1.0 },
+      { id: 'm089', name: 'Sebastian, an Order', power: 50, accuracy: 1.0, emoji: '🤵' },
       {
         id: 'm090',
         name: 'Checkmate',
@@ -618,6 +667,7 @@ export const CHARACTERS: Record<string, Character> = {
         accuracy: 1.0,
         effect: 'enemy_defense_down',
         value: 2,
+        emoji: '♟️',
       },
       {
         id: 'm091',
@@ -626,6 +676,7 @@ export const CHARACTERS: Record<string, Character> = {
         accuracy: 1.0,
         effect: 'attack_up',
         value: 2,
+        emoji: '📜',
       },
       {
         id: 'm092',
@@ -634,6 +685,7 @@ export const CHARACTERS: Record<string, Character> = {
         accuracy: 0.95,
         effect: 'enemy_attack_down',
         value: 1,
+        emoji: '🏭',
       },
     ],
   },

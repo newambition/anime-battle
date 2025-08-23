@@ -44,55 +44,56 @@ function processEvents(
       case 'turn_start':
         if (move) {
           messages.push(
-            `${event.side === 'player' ? state.player.name : state.opponent.name} used ${move.name}!`
+            `${move.emoji || '💥'} ${event.side === 'player' ? state.player.name : state.opponent.name} used ${move.name}!`
           );
         }
         break;
-      case 'damage':
-        let msg = `It did ${event.amount} damage!`;
+      case 'damage': {
+        let msg = `💥 It did ${event.amount} damage!`;
         if (event.totalHits && event.totalHits > 1) {
-          msg = `Hit ${event.hitIndex}/${event.totalHits}: ${event.amount} damage!`;
+          msg = `💥 Hit ${event.hitIndex}/${event.totalHits}: ${event.amount} damage!`;
         }
         messages.push(msg);
         break;
+      }
       case 'miss':
         messages.push(
-          `${event.side === 'player' ? state.player.name : state.opponent.name}'s attack missed!`
+          `💨 ${event.side === 'player' ? state.player.name : state.opponent.name}'s attack missed!`
         );
         break;
       case 'hp_cost_paid':
         messages.push(
-          `${event.side === 'player' ? state.player.name : state.opponent.name} paid ${event.amount} HP to use the move.`
+          `💔 ${event.side === 'player' ? state.player.name : state.opponent.name} paid ${event.amount} HP to use the move.`
         );
         break;
       case 'recoil':
         messages.push(
-          `${event.side === 'player' ? state.player.name : state.opponent.name} took ${event.amount} recoil damage.`
+          `💥 ${event.side === 'player' ? state.player.name : state.opponent.name} took ${event.amount} recoil damage.`
         );
         break;
       case 'stat_change':
         messages.push(
-          `${event.side === 'player' ? state.player.name : state.opponent.name}'s ${event.stat} ${event.change > 0 ? 'rose' : 'fell'}!`
+          `${event.change > 0 ? '📈' : '📉'} ${event.side === 'player' ? state.player.name : state.opponent.name}'s ${event.stat} ${event.change > 0 ? 'rose' : 'fell'}!`
         );
         break;
       case 'charge_started':
         messages.push(
-          `${event.side === 'player' ? state.player.name : state.opponent.name} is charging up!`
+          `🔋  ${event.side === 'player' ? state.player.name : state.opponent.name} is charging up!`
         );
         break;
       case 'charge_released':
         messages.push(
-          `${event.side === 'player' ? state.player.name : state.opponent.name} unleashed its charged power!`
+          `⚡️ ${event.side === 'player' ? state.player.name : state.opponent.name} unleashed its charged power!`
         );
         break;
       case 'faint':
         messages.push(
-          `${event.side === 'player' ? state.player.name : state.opponent.name} fainted!`
+          `😵 ${event.side === 'player' ? state.player.name : state.opponent.name} fainted!`
         );
         if (event.side === 'opponent') {
-          messages.push('You win!');
+          messages.push('🎉 You win!');
         } else {
-          messages.push('You lose!');
+          messages.push(' 😢 You lose!');
         }
         break;
     }
@@ -106,8 +107,8 @@ const useBattleStore = create<BattleStoreState & BattleStoreActions>(
     gameState: 'selecting',
     battleState: null,
     battleLog: [],
-    playerChoiceId: 'p001',
-    opponentChoiceId: 'e001',
+    playerChoiceId: '',
+    opponentChoiceId: '',
     player: null,
     opponent: null,
 
@@ -190,7 +191,10 @@ const useBattleStore = create<BattleStoreState & BattleStoreActions>(
           battleLog: [...state.battleLog, ...opponentLogMessages],
         }));
 
-        if (opponentTurnState.player.hp <= 0 || opponentTurnState.opponent.hp <= 0) {
+        if (
+          opponentTurnState.player.hp <= 0 ||
+          opponentTurnState.opponent.hp <= 0
+        ) {
           set({ gameState: 'game_over' });
           return;
         }
@@ -204,8 +208,8 @@ const useBattleStore = create<BattleStoreState & BattleStoreActions>(
         gameState: 'selecting',
         battleState: null,
         battleLog: [],
-        playerChoiceId: 'p001',
-        opponentChoiceId: 'e001',
+        playerChoiceId: '',
+        opponentChoiceId: '',
         player: null,
         opponent: null,
       });
