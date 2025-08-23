@@ -19,7 +19,9 @@ const MoveButton: React.FC<MoveButtonProps> = ({
 }) => {
   return (
     <button
-      className={`${color} flex items-center justify-center gap-4 rounded-2xl px-4 py-4 font-bold text-white shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-xl`}
+      className={`${color} flex items-center justify-center gap-4 rounded-2xl px-4 py-4 font-bold text-white shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-xl ${
+        selected ? 'ring-4 ring-white' : ''
+      }`}
       onClick={onClick}
       disabled={disabled}
     >

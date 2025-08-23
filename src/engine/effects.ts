@@ -99,7 +99,6 @@ export function applyStatChanges(
 export function applyEnemyDebuffs(
   target: BattleCharacter,
   move: Move,
-  side: ActorSide,
   targetSide: ActorSide
 ): { target: BattleCharacter; events: BattleEvent[] } {
   const effects = normalizeMoveEffects(move);

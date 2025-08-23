@@ -326,7 +326,6 @@ export function takeTurn(
   const debuffed = applyEnemyDebuffs(
     side === 'player' ? state.opponent : state.player,
     move,
-    side,
     otherSide(side)
   );
   state =

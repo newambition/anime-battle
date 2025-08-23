@@ -13,7 +13,7 @@ export default defineConfig({
       registerType: 'autoUpdate',
       devOptions: { enabled: true },
       manifest: {
-        name: 'Protagonist Showdown',
+        name: 'Anime Showdown',
         short_name: 'Showdown',
         start_url: '/',
         scope: '/',
@@ -23,9 +23,16 @@ export default defineConfig({
         description: 'Turn-based anime battle game.',
         icons: [
           {
-            src: 'src/assets/winkHeart.svg',
+            src: '/winkHeart.svg',
             sizes: '192x192',
             type: 'image/png',
+            purpose: 'any maskable',
+          },
+          {
+            src: '/winkHeart.svg',
+            sizes: '512x512',
+            type: 'image/png',
+            purpose: 'any maskable',
           },
         ],
       },
