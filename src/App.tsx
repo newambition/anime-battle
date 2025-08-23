@@ -61,11 +61,11 @@ function App() {
       </div>
 
       {/* Move Buttons */}
-      <div className="mb-2 grid grid-cols-2 gap-3">
+      <div className="mb-6 grid grid-cols-2 gap-3">
         {gameState === 'game_over' ? (
           <button
             onClick={restart}
-            className="col-span-2 rounded-2xl bg-blue-500 px-4 py-2 font-bold text-white shadow-lg"
+            className="col-span-2 rounded-2xl bg-blue-300 px-4 py-2 font-bold text-white shadow-lg"
           >
             Restart
           </button>
@@ -76,7 +76,7 @@ function App() {
               name={move.name}
               icon={move.emoji || ''}
               color={
-                gameState === 'player_turn' ? 'bg-blue-500' : 'bg-gray-500'
+                gameState === 'player_turn' ? 'bg-blue-400' : 'bg-gray-500'
               }
               disabled={gameState !== 'player_turn'}
               selected={false}
