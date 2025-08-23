@@ -43,11 +43,11 @@ const CharacterSelect = () => {
   };
 
   return (
-    <div className="flex h-screen flex-col items-center justify-center p-4">
+    <div className="flex h-screen flex-col items-center justify-center p-6">
       <h1 className="font-pixel mt-4 mb-4 text-center text-2xl font-bold tracking-wider text-white">
         Choose Your Fighter
       </h1>
-      <div className="grid max-w-4xl grid-cols-3 gap-4 overflow-y-auto md:grid-cols-4">
+      <div className="grid max-w-4xl grid-cols-3 gap-3 overflow-y-auto px-1 md:grid-cols-4">
         {Object.entries(CHARACTERS).map(([id, character]) => (
           <CharacterCard
             key={id}
@@ -72,11 +72,11 @@ const CharacterSelect = () => {
           </div>
         </div>
         <button
-          className="font-pixel w-full cursor-pointer rounded-2xl bg-white px-8 py-4 text-xl font-bold text-gray-800 transition-colors hover:bg-gray-100"
+          className="font-pixel w-full cursor-pointer rounded-2xl bg-white px-8 py-4 text-2xl font-bold text-gray-800 transition-colors hover:bg-gray-100"
           onClick={startBattle}
           disabled={!playerChoiceId || !opponentChoiceId}
         >
-          Battle! ✨
+          Battle!
         </button>
       </div>
     </div>
