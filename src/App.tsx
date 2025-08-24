@@ -7,6 +7,7 @@ import HomeButton from './components/HomeButton.tsx';
 import MoveButton from './components/MoveButton.tsx';
 import Footer from './components/footer.tsx';
 import type { Move } from './data/battleData.ts';
+import backgroundMusic from './assets/my-8-bit-hero-301280.mp3';
 
 function App() {
   const { gameState, player, opponent, battleLog, handleMove, restart } =
@@ -65,6 +66,8 @@ function App() {
           />
         </div>
       )}
+
+      <audio src={backgroundMusic} autoPlay loop />
 
       {/* Battle Log */}
       <div className="mb-2 rounded-2xl bg-white/60 p-4 text-black shadow-lg">

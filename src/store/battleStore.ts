@@ -150,17 +150,9 @@ const useBattleStore = create<BattleStoreState & BattleStoreActions>(
       });
     },
 
-    handleMove: (move) => {
+        handleMove: (move) => {
       const { battleState } = get();
       if (get().gameState !== 'player_turn' || !battleState) return;
-
-      set({
-        gameState: 'animating',
-        playerAnimation: null,
-        opponentAnimation: null,
-        playerHealthFlash: false,
-        opponentHealthFlash: false,
-      });
 
       // --- Player's Turn ---
       const { state: playerTurnState, events: playerEvents } = takeTurn(
@@ -199,16 +191,17 @@ const useBattleStore = create<BattleStoreState & BattleStoreActions>(
         }
       });
 
-      set({
+      set((state) => ({
+        gameState: 'animating',
         battleState: playerTurnState,
         player: playerTurnState.player,
         opponent: playerTurnState.opponent,
-        battleLog: playerLogMessages,
+        battleLog: [...state.battleLog, ...playerLogMessages],
         playerAnimation: playerAnimationUpdate,
         opponentAnimation: opponentAnimationUpdate,
         playerHealthFlash: playerHealthFlashUpdate,
         opponentHealthFlash: opponentHealthFlashUpdate,
-      });
+      }));
 
       if (playerTurnState.opponent.hp <= 0) {
         set({ gameState: 'game_over' });
@@ -280,7 +273,7 @@ const useBattleStore = create<BattleStoreState & BattleStoreActions>(
           opponentHealthFlash: opponentHealthFlashUpdate_opp,
         }));
 
-        if (opponentTurnState.player.hp <= 0) {
+        if (opponentTurnState.player.hp <= 0 || opponentTurnState.opponent.hp <= 0) {
           set({ gameState: 'game_over' });
           return;
         }

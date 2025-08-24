@@ -73,7 +73,7 @@ The chosen testing framework is **Vitest**, as it offers a modern, fast, and sea
 
 These tests will validate the pure helper functions in isolation. A mocked Random Number Generator (RNG) will be used to ensure deterministic outcomes.
 
-- [ ] **Step 2.1: Test `battleMath.ts`** (`src/engine/battleMath.test.ts`)
+- [x] **Step 2.1: Test `battleMath.ts`** (`src/engine/battleMath.test.ts`)
   - `getStageMultiplier`: Test with positive, negative, and zero stages to ensure correct multiplier calculation.
   - `computeDamage`:
     - Test a baseline scenario with no stat stages or modifiers.
@@ -84,13 +84,13 @@ These tests will validate the pure helper functions in isolation. A mocked Rando
   - `rollHit` / `rollCrit`: Provide a mocked RNG that returns fixed values (e.g., `() => 0.1`) to test both success and failure cases predictably.
   - `applyHpCost` / `applyRecoil`: Test that HP is correctly deducted and that the `fainted` flag is true when HP drops to 0.
 
-- [ ] **Step 2.2: Test `effects.ts`** (`src/engine/effects.test.ts`)
+- [x] **Step 2.2: Test `effects.ts`** (`src/engine/effects.test.ts`)
   - `normalizeMoveEffects`: Test with a move that has a legacy `effect` and a move with a new `effects` array to ensure both are parsed correctly.
   - `applyStatChanges`: Test a move like "Guard Up" (`defense_up`) and verify the actor's `defense` stage is incremented correctly.
   - `applyEnemyDebuffs`: Test a move that applies `enemy_defense_down` and verify the target's `defense` stage is decremented.
   - `applyStatuses`: Use a mocked RNG to test chance-based statuses like `paralyze`. For example, with a 30% chance, mock the RNG to return `0.2` (should apply) and `0.4` (should not apply).
 
-- [ ] **Step 2.3: Test `charge.ts`** (`src/engine/charge.test.ts`)
+- [x] **Step 2.3: Test `charge.ts`** (`src/engine/charge.test.ts`)
   - `maybeStartCharge`: Use a chargeable move (like Spirit Bomb) and assert that the actor's charge state is correctly initialized (`turnsLeft: 1`).
   - `tickCharge`: After starting a charge, call `tickCharge` and assert that `turnsLeft` is now 0.
   - `maybeReleaseCharge`: After ticking a charge to 0, call this function and assert that it returns the correct `Move` object and that the actor's charge state is now `null`.
@@ -101,7 +101,7 @@ These tests will validate the pure helper functions in isolation. A mocked Rando
 
 These tests will validate the entire game flow by calling the store's actions and asserting on the resulting state, as described in the `engine-manual.md`.
 
-- [ ] **Step 3.1: Test `battleStore.ts` - Core Actions** (`src/store/battleStore.test.ts`)
+- [x] **Step 3.1: Test `battleStore.ts` - Core Actions** (`src/store/battleStore.test.ts`)
   - **`startBattle`:**
     - Call `startBattle`.
     - Assert that `battleState` is not null.

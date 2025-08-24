@@ -4,7 +4,7 @@ export const MIN_STAGE = -6;
 export const MAX_STAGE = 6;
 
 export const MIN_STAT_MULTIPLIER = 0.1;
-export const MAX_STAT_MULTIPLIER = 1.25;
+export const MAX_STAT_MULTIPLIER = 4.0;
 
 export const MIN_ACCURACY = 0.1;
 export const MAX_ACCURACY = 1.0;

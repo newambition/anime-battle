@@ -28,6 +28,10 @@ const HealthBar: React.FC<HealthBarProps> = ({
       </div>
       <div className="h-3 w-full rounded-full bg-gray-300">
         <div
+          role="progressbar"
+          aria-valuenow={healthPercentage}
+          aria-valuemin={0}
+          aria-valuemax={100}
           className={`h-3 rounded-full bg-green-500 ${healthFlash ? 'animate-health-flash' : ''}`}
           style={{ width: `${healthPercentage}%` }}
         ></div>

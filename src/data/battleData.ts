@@ -17,6 +17,12 @@ import SebastianSprite from '../assets/SebastianMichaelis.png';
 import CielSprite from '../assets/CielPhantomhive.png';
 import OliviaSprite from '../assets/Olivia.png';
 import BoogieSprite from '../assets/Boogie.png';
+import GonSprite from '../assets/Gon.png';
+import KilluaSprite from '../assets/Killua.png';
+import IchigoSprite from '../assets/IchigoKurosaki.png';
+import RukiaSprite from '../assets/RukiaKuchiki.png';
+import SailorMoonSprite from '../assets/SailorMoon.png';
+import SailorMarsSprite from '../assets/SailorMars.png';
 
 export type MoveEffect =
   | 'defense_up'
@@ -888,6 +894,207 @@ export const CHARACTERS: Record<string, Character> = {
         effects: [{ type: 'accuracy_down', value: 1 }],
         emoji: '🤢',
       },
+    ],
+  },
+  p020: {
+    id: 'p020---',
+    name: 'Gon Freecss',
+    //series: 'Hunter x Hunter',
+    sprite: GonSprite,
+    hp: 100,
+    attack: 95,
+    defense: 80,
+    moves: [
+      { id: 'm061', name: 'Jajanken: Paper', power: 70, accuracy: 1.0 },
+      {
+        id: 'm062',
+        name: 'Enhance',
+        power: 0,
+        accuracy: 1.0,
+        effects: [
+          { type: 'attack_up', value: 1 },
+          { type: 'defense_up', value: 1 },
+        ],
+      },
+      {
+        id: 'm063',
+        name: 'Jajanken: Scissors',
+        power: 85,
+        accuracy: 0.95,
+        highCritChance: true,
+      },
+      {
+        id: 'm064',
+        name: 'Jajanken: Rock',
+        power: 140,
+        accuracy: 0.9,
+        chargeTurns: 1,
+      }, // Requires 1 turn to charge
+    ],
+  },
+  p021: {
+    id: 'p021',
+    name: 'Killua Zoldyck',
+    //series: 'Hunter x Hunter',
+    sprite: KilluaSprite,
+    hp: 85,
+    attack: 105,
+    defense: 75,
+    moves: [
+      { id: 'm065', name: 'The Snake Awakens', power: 75, accuracy: 1.0 },
+      {
+        id: 'm066',
+        name: 'Thunderbolt',
+        power: 60,
+        accuracy: 0.9,
+        effect: 'paralyze',
+        chance: 0.3,
+      }, // 30% chance to paralyze
+      {
+        id: 'm067',
+        name: 'Assassinate',
+        power: 95,
+        accuracy: 1.0,
+        highCritChance: true,
+      },
+      {
+        id: 'm068',
+        name: 'Godspeed',
+        power: 0,
+        accuracy: 1.0,
+        effects: [
+          { type: 'attack_up', value: 2 },
+          { type: 'defense_up', value: 1 },
+        ],
+      },
+    ],
+  },
+  p022: {
+    id: 'p022',
+    name: 'Ichigo Kurosaki',
+    //series: 'Bleach',
+    sprite: IchigoSprite,
+    hp: 100,
+    attack: 100,
+    defense: 85,
+    moves: [
+      { id: 'm069', name: 'Getsuga Tensho', power: 90, accuracy: 1.0 },
+      {
+        id: 'm070',
+        name: 'Shunpo',
+        power: 0,
+        accuracy: 1.0,
+        effect: 'defense_up',
+        value: 1,
+      },
+      {
+        id: 'm071',
+        name: 'Hollow Mask',
+        power: 0,
+        accuracy: 1.0,
+        effect: 'attack_up',
+        value: 2,
+        hpCost: 10,
+      },
+      {
+        id: 'm072',
+        name: 'Final Getsuga',
+        power: 190,
+        accuracy: 0.95,
+        recoilDamage: 60,
+      },
+    ],
+  },
+  p023: {
+    id: 'p023',
+    name: 'Rukia Kuchiki',
+    //series: 'Bleach',
+    sprite: RukiaSprite,
+    hp: 90,
+    attack: 90,
+    defense: 90,
+    moves: [
+      {
+        id: 'm073',
+        name: 'Sode no Shirayuki',
+        power: 70,
+        accuracy: 1.0,
+        effect: 'freeze',
+        chance: 0.1,
+      }, // 10% chance to freeze
+      {
+        id: 'm074',
+        name: 'Kido: Bakudo',
+        power: 0,
+        accuracy: 0.9,
+        effect: 'enemy_defense_down',
+        value: 1,
+      },
+      { id: 'm075', name: 'Some no mai', power: 80, accuracy: 1.0 },
+      { id: 'm076', name: 'Tsugi no mai, Hakuren', power: 120, accuracy: 0.9 },
+    ],
+  },
+  p024: {
+    id: 'p024',
+    name: 'Sailor Moon',
+    //series: 'Sailor Moon',
+    sprite: SailorMoonSprite,
+    hp: 110,
+    attack: 85,
+    defense: 90,
+    moves: [
+      { id: 'm077', name: 'Moon Tiara Action', power: 75, accuracy: 1.0 },
+      {
+        id: 'm078',
+        name: 'Disguise Power',
+        power: 0,
+        accuracy: 1.0,
+        effect: 'defense_up',
+        value: 2,
+      },
+      {
+        id: 'm079',
+        name: 'Moon Healing Escalation',
+        power: 0,
+        accuracy: 1.0,
+        effect: 'heal',
+        value: 50,
+      }, // Heals 50 HP
+      {
+        id: 'm080',
+        name: 'Moon Gorgeous Meditation',
+        power: 130,
+        accuracy: 0.9,
+      },
+    ],
+  },
+  p025: {
+    id: 'p025',
+    name: 'Sailor Mars',
+    //series: 'Sailor Moon',
+    sprite: SailorMarsSprite,
+    hp: 85,
+    attack: 110,
+    defense: 70,
+    moves: [
+      { id: 'm081', name: 'Fire Soul', power: 80, accuracy: 1.0 },
+      {
+        id: 'm082',
+        name: 'Akuryo Taisan',
+        power: 60,
+        accuracy: 0.9,
+        effect: 'enemy_attack_down',
+        value: 1,
+      },
+      {
+        id: 'm083',
+        name: 'Spiritual Focus',
+        power: 0,
+        accuracy: 1.0,
+        effect: 'attack_up',
+        value: 2,
+      },
+      { id: 'm084', name: 'Mars Flame Sniper', power: 120, accuracy: 0.95 },
     ],
   },
 };
