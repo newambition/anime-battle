@@ -47,7 +47,7 @@ const CharacterSelect = () => {
       <h1 className="font-pixel mt-4 mb-4 text-center text-2xl font-bold tracking-wider text-white">
         Choose Your Fighter
       </h1>
-      <div className="grid max-w-4xl grid-cols-3 gap-3 overflow-y-auto px-1 md:grid-cols-4">
+      <div className="grid max-w-4xl grid-cols-3 gap-3 overflow-y-auto p-1 md:grid-cols-4">
         {Object.entries(CHARACTERS).map(([id, character]) => (
           <CharacterCard
             key={id}

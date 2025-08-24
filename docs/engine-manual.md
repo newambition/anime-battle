@@ -34,17 +34,26 @@ The typical data flow for a single turn is as follows:
 
 `takeTurn` is the heart of the engine. It follows a strict order of operations to resolve a turn:
 
-1.  **Charge Handling:** It first checks if the current actor is charging a move. If a charge is pending but not ready, the turn ends immediately. If a charge is ready, it is released, and that move is used for the turn.
-2.  **Move Resolution:** It resolves the chosen move ID to a full `Move` object.
-3.  **Cost Application:** It applies any HP costs associated with the move.
-4.  **Status Gating:** It checks for statuses like `paralyze` or `freeze` that might prevent the actor from moving.
-5.  **Effect Resolution:** It determines if the move is a simple self-buff or a damaging/debuffing move.
-6.  **Accuracy Roll:** For non-self-only moves, it calculates the final accuracy (including stat stages) and rolls to see if the move hits.
-7.  **Damage Calculation:** If the move hits and has power, it calculates the damage based on stats, stages, and move power. This includes calculating critical hits and defense ignore.
-8.  **Effect Application:** It applies any on-hit effects, such as debuffs or statuses, to the target.
-9.  **Recoil:** It applies any recoil damage to the attacker.
-10. **Faint Check:** It checks if any character's HP has reached zero.
-11. **Return:** It returns the final state and the full list of events.
+1.  **Charge Handling:** The engine first ticks down any existing charge on the actor.
+    - If the actor is still charging after the tick (i.e., `turnsLeft > 0`), the turn ends immediately.
+    - If the charge is complete, the charged move is "released" and becomes the active move for the rest of the turn.
+2.  **Move Resolution:** If a charged move wasn't released, the engine uses the `chosenMoveId` to find the move details.
+3.  **New Charge Start:** If the chosen move is a charge move (e.g., Spirit Bomb) and the actor isn't already charging, the engine starts the charge and the turn ends. The actual move execution is deferred.
+4.  **HP Cost:** Any `hpCost` for the move is paid *before* any other action. If the cost causes the actor to faint, the turn ends.
+5.  **Status Gating:** The engine checks for statuses that prevent action.
+    - **Paralyze:** 25% chance to be fully paralyzed for the turn.
+    - **Freeze:** If frozen, there's a 20% chance to thaw. If the thaw fails, the turn is skipped.
+6.  **Self-Only Moves:** The engine checks if the move *only* contains effects that apply to the user (e.g., `attack_up`, `heal`, `invulnerable`). If so, it applies these effects and ends the turn, skipping all accuracy and damage steps.
+7.  **Accuracy Roll:** For any move that affects an opponent, the engine calculates the final accuracy (factoring in the attacker's accuracy stages) and performs a roll to see if the move hits. A miss ends the turn.
+8.  **Damage & Effect Loop:** If the move hits, the engine proceeds:
+    - **Critical Hit:** Rolls for a critical hit (base 5%, or 15% for high-crit moves).
+    - **Invulnerability Check:** Checks if the target is invulnerable, which blocks all damage.
+    - **Multi-Hit Loop:** For moves with multiple `hits`, the damage and effect logic runs for each hit.
+    - **Damage Calculation:** Damage is computed based on attacker's attack, defender's defense (with stat stages), move power, and critical hit status. It also accounts for `defense_ignore` effects.
+    - **On-Hit Effects:** After damage, any on-hit effects (`enemy_defense_down`, `paralyze`, `freeze`) are applied to the target.
+9.  **Recoil:** If the move caused damage and has `recoilDamage`, the recoil is applied to the attacker.
+10. **Faint Checks:** The engine checks for faints on the target (due to damage) and the attacker (due to recoil).
+11. **Return:** The function returns the final, updated `BattleState` and a complete array of `BattleEvent` objects describing every step that occurred.
 
 ## 4. Writing Tests
 
@@ -62,11 +71,16 @@ Given the engine's design, writing tests is straightforward.
 
   test('handleMove action should damage opponent and update state', () => {
     // Set initial state for the test
-    useBattleStore.getState().startBattle(); // Assuming default characters
+    useBattleStore.getState().setPlayerChoice('p001'); // Set Kanao
+    useBattleStore.getState().setOpponentChoice('e001'); // Set Naruto
+    useBattleStore.getState().startBattle();
+
     const initialState = useBattleStore.getState().battleState;
+    // This check is important because startBattle is synchronous but we want to be sure
+    expect(initialState).not.toBeNull();
 
     // Get a move to use
-    const playerMove = initialState.player.moves[0];
+    const playerMove = initialState.player.moves[0]; // Kanao's "Crimson Slash"
 
     // Call the action
     useBattleStore.getState().handleMove(playerMove);
