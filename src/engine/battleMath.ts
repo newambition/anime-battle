@@ -3,8 +3,8 @@
 export const MIN_STAGE = -6;
 export const MAX_STAGE = 6;
 
-export const MIN_STAT_MULTIPLIER = 0.25;
-export const MAX_STAT_MULTIPLIER = 2.0;
+export const MIN_STAT_MULTIPLIER = 0.1;
+export const MAX_STAT_MULTIPLIER = 1.25;
 
 export const MIN_ACCURACY = 0.1;
 export const MAX_ACCURACY = 1.0;
@@ -37,8 +37,8 @@ export function applyAccuracyStages(
 }
 
 // Probabilities and crit multiplier
-export const BASE_CRIT_CHANCE = 0.05; // 10%
-export const HIGH_CRIT_CHANCE = 0.15; // 30%
+export const BASE_CRIT_CHANCE = 0.05; // 5%
+export const HIGH_CRIT_CHANCE = 0.15; // 15%
 export const CRIT_MULTIPLIER = 1.15;
 
 export function rollHit(
@@ -68,7 +68,7 @@ export function computeEffectiveDefense(
   return Math.max(1, Math.floor(effective));
 }
 
-const DAMAGE_CONSTANT = 10;
+const DAMAGE_CONSTANT = 5;
 
 export function computeDamage(
   attackerAttack: number,

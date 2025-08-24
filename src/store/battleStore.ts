@@ -145,7 +145,13 @@ const useBattleStore = create<BattleStoreState & BattleStoreActions>(
       const { battleState } = get();
       if (get().gameState !== 'player_turn' || !battleState) return;
 
-      set({ gameState: 'animating', playerAnimation: null, opponentAnimation: null, playerHealthFlash: false, opponentHealthFlash: false });
+      set({
+        gameState: 'animating',
+        playerAnimation: null,
+        opponentAnimation: null,
+        playerHealthFlash: false,
+        opponentHealthFlash: false,
+      });
 
       // --- Player's Turn ---
       const { state: playerTurnState, events: playerEvents } = takeTurn(
@@ -154,21 +160,27 @@ const useBattleStore = create<BattleStoreState & BattleStoreActions>(
         move.id
       );
 
-      const playerLogMessages = processEvents(playerEvents, playerTurnState, move);
-      
+      const playerLogMessages = processEvents(
+        playerEvents,
+        playerTurnState,
+        move
+      );
+
       let playerAnimationUpdate: AnimationType = null;
       let opponentAnimationUpdate: AnimationType = null;
       let playerHealthFlashUpdate = false;
       let opponentHealthFlashUpdate = false;
 
-      playerEvents.forEach(event => {
+      playerEvents.forEach((event) => {
         if (event.type === 'damage') {
           opponentAnimationUpdate = 'shake';
           opponentHealthFlashUpdate = true;
+          navigator.vibrate(200);
         }
         if (event.type === 'recoil') {
           playerAnimationUpdate = 'shake';
           playerHealthFlashUpdate = true;
+          navigator.vibrate(200);
         }
         if (event.type === 'charge_started') {
           playerAnimationUpdate = 'glow';
@@ -197,7 +209,12 @@ const useBattleStore = create<BattleStoreState & BattleStoreActions>(
         if (!currentBattleState) return;
 
         // Reset player's one-off animations
-        set({ playerAnimation: null, opponentAnimation: null, playerHealthFlash: false, opponentHealthFlash: false });
+        set({
+          playerAnimation: null,
+          opponentAnimation: null,
+          playerHealthFlash: false,
+          opponentHealthFlash: false,
+        });
 
         const opponentMove =
           currentBattleState.opponent.moves[
@@ -210,14 +227,18 @@ const useBattleStore = create<BattleStoreState & BattleStoreActions>(
           opponentMove.id
         );
 
-        const opponentLogMessages = processEvents(opponentEvents, opponentTurnState, opponentMove);
+        const opponentLogMessages = processEvents(
+          opponentEvents,
+          opponentTurnState,
+          opponentMove
+        );
 
         let playerAnimationUpdate_opp: AnimationType = null;
         let opponentAnimationUpdate_opp: AnimationType = null;
         let playerHealthFlashUpdate_opp = false;
         let opponentHealthFlashUpdate_opp = false;
 
-        opponentEvents.forEach(event => {
+        opponentEvents.forEach((event) => {
           if (event.type === 'damage') {
             playerAnimationUpdate_opp = 'shake';
             playerHealthFlashUpdate_opp = true;
@@ -248,10 +269,15 @@ const useBattleStore = create<BattleStoreState & BattleStoreActions>(
         }
 
         setTimeout(() => {
-          set({ playerAnimation: null, opponentAnimation: null, playerHealthFlash: false, opponentHealthFlash: false, gameState: 'player_turn' });
-        }, 500);
-
-      }, 2000);
+          set({
+            playerAnimation: null,
+            opponentAnimation: null,
+            playerHealthFlash: false,
+            opponentHealthFlash: false,
+            gameState: 'player_turn',
+          });
+        }, 2000);
+      }, 5000);
     },
 
     restart: () => {

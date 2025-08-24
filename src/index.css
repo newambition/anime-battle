@@ -14,7 +14,7 @@
 
 body,
 #root {
-  @apply h-screen overflow-hidden;
+  @apply h-[100dvh] overflow-hidden;
 }
 
 body {
