@@ -11,6 +11,9 @@ export default defineConfig({
     VitePWA({
       injectRegister: 'auto',
       registerType: 'autoUpdate',
+      workbox: {
+        globPatterns: ['**/*.{ts,tsx,css,html,png,svg}'],
+      },
       devOptions: { enabled: true },
       manifest: {
         name: 'Anime Showdown',
@@ -18,7 +21,7 @@ export default defineConfig({
         start_url: '/',
         scope: '/',
         display: 'standalone',
-        background_color: '#0b0b0b',
+        background_color: '#f0f0f0',
         theme_color: '#0ea5e9',
         description: 'Turn-based anime battle game.',
         icons: [
@@ -35,6 +38,8 @@ export default defineConfig({
             purpose: 'any maskable',
           },
         ],
+        orientation: 'portrait-primary',
+        display_override: ['window-controls-overlay', 'fullscreen'],
       },
     }),
   ],
