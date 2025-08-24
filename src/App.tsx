@@ -8,10 +8,20 @@ import MoveButton from './components/MoveButton.tsx';
 import Footer from './components/footer.tsx';
 import type { Move } from './data/battleData.ts';
 import backgroundMusic from './assets/my-8-bit-hero-301280.mp3';
+import { useEffect, useRef } from 'react';
 
 function App() {
   const { gameState, player, opponent, battleLog, handleMove, restart } =
     useBattleStore();
+  const audioRef = useRef<HTMLAudioElement>(null);
+
+  useEffect(() => {
+    if (gameState !== 'selecting' && audioRef.current) {
+      audioRef.current.play().catch((error) => {
+        console.error('Audio playback failed:', error);
+      });
+    }
+  }, [gameState]);
 
   if (gameState === 'selecting') {
     return <CharacterSelect />;
@@ -67,7 +77,7 @@ function App() {
         </div>
       )}
 
-      <audio src={backgroundMusic} autoPlay loop />
+      <audio ref={audioRef} src={backgroundMusic} loop />
 
       {/* Battle Log */}
       <div className="mb-2 rounded-2xl bg-white/60 p-4 text-black shadow-lg">
