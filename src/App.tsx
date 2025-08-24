@@ -28,14 +28,14 @@ function App() {
   };
 
   return (
-    <div className="flex flex-col p-4 text-black">
+    <div className="flex flex-col p-5 text-black">
       <div onClick={restart}>
         <HomeButton />
       </div>
 
       {/* Opponent Section */}
       {opponent && (
-        <div className="mt-12 flex items-center justify-between">
+        <div className="mt-auto flex items-center justify-between">
           <HealthBar
             name={opponent.name}
             currentHp={opponent.hp}
@@ -48,7 +48,7 @@ function App() {
       )}
 
       {/*VS Card*/}
-      <div className="mx-auto mt-6 w-fit transform rounded-2xl bg-yellow-400 px-2 py-2 text-center text-black shadow-lg">
+      <div className="mx-auto mt-4 w-fit transform animate-pulse rounded-2xl bg-yellow-400 px-2 py-2 text-center text-black shadow-lg duration-1000 ease-in-out">
         <h1 className="font-pixel text-md font-bold">⚔️ VS ⚔️</h1>
       </div>
 

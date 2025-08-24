@@ -59,7 +59,7 @@ body {
 }
 
 .animate-glow {
-  animation: glow 1.5s ease-in-out infinite;
+  animation: glow 2s ease-in-out infinite;
 }
 
 @keyframes health-flash {
@@ -73,5 +73,19 @@ body {
 }
 
 .animate-health-flash {
-  animation: health-flash 0.5s ease-in-out;
+  animation: health-flash 1s ease-in-out;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.animate-pulse {
+  animation: pulse 3s ease-in-out infinite;
 }
