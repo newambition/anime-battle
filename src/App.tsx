@@ -6,6 +6,7 @@ import useBattleStore from './store/battleStore.ts';
 import HomeButton from './components/HomeButton.tsx';
 import MoveButton from './components/MoveButton.tsx';
 import Footer from './components/footer.tsx';
+import type { Move } from './data/battleData.ts';
 
 function App() {
   const { gameState, player, opponent, battleLog, handleMove, restart } =
@@ -15,15 +16,26 @@ function App() {
     return <CharacterSelect />;
   }
 
+  const getMoveButtonColor = (move: Move) => {
+    if (gameState !== 'player_turn') {
+      return 'bg-gray-500';
+    }
+    // A move is an effect move if it has an `effect` or `effects` property.
+    if (move.effect || (move.effects && move.effects.length > 0)) {
+      return 'bg-blue-400'; // Color for effect moves
+    }
+    return 'bg-yellow-400'; // Color for damage moves
+  };
+
   return (
-    <div className="flex flex-col p-4 text-white">
+    <div className="flex flex-col p-4 text-black">
       <div onClick={restart}>
         <HomeButton />
       </div>
 
       {/* Opponent Section */}
       {opponent && (
-        <div className="mt-6 flex items-center justify-between">
+        <div className="mt-12 flex items-center justify-between">
           <HealthBar
             name={opponent.name}
             currentHp={opponent.hp}
@@ -36,7 +48,7 @@ function App() {
       )}
 
       {/*VS Card*/}
-      <div className="mx-auto mt-6 w-fit transform rounded-2xl bg-white/80 px-2 py-2 text-center text-black shadow-lg">
+      <div className="mx-auto mt-6 w-fit transform rounded-2xl bg-yellow-400 px-2 py-2 text-center text-black shadow-lg">
         <h1 className="font-pixel text-md font-bold">⚔️ VS ⚔️</h1>
       </div>
 
@@ -55,12 +67,12 @@ function App() {
       )}
 
       {/* Battle Log */}
-      <div className="mb-6 rounded-2xl bg-white/80 p-4 text-black shadow-lg">
+      <div className="mb-2 rounded-2xl bg-white/60 p-4 text-black shadow-lg">
         <BattleLog messages={battleLog} />
       </div>
 
       {/* Move Buttons */}
-      <div className="mb-6 grid grid-cols-2 gap-3">
+      <div className="mb-4 grid grid-cols-2 gap-3">
         {gameState === 'game_over' ? (
           <button
             onClick={restart}
@@ -74,9 +86,7 @@ function App() {
               key={move.id}
               name={move.name}
               icon={move.emoji || ''}
-              color={
-                gameState === 'player_turn' ? 'bg-blue-400' : 'bg-gray-500'
-              }
+              color={getMoveButtonColor(move)}
               disabled={gameState !== 'player_turn'}
               selected={false}
               onClick={() => {

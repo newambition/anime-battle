@@ -19,6 +19,9 @@ body,
 
 body {
   @apply from-primary via-secondary to-tertiary bg-gradient-to-br font-sans;
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  background-blend-mode: color-dodge;
 }
 
 @keyframes shake {

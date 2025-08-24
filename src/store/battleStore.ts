@@ -141,7 +141,11 @@ const useBattleStore = create<BattleStoreState & BattleStoreActions>(
         battleState: initialState,
         player: initialState.player,
         opponent: initialState.opponent,
-        battleLog: ['The battle begins!'],
+        battleLog: [
+          '⚔️ The battle begins! ⚔️',
+          '🔵 Blue buttons: Effects moves such as Increase defense, Increase attack, etc. Theese are tactical moves that can be used to your advantage.',
+          '🟡 Yellow buttons: Are the ones that deal damage to the opponent.',
+        ],
         gameState: 'player_turn',
       });
     },
