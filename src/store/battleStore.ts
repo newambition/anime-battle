@@ -82,6 +82,11 @@ function processEvents(
           `${event.change > 0 ? '📈' : '📉'} ${event.side === 'player' ? state.player.name : state.opponent.name}'s ${event.stat} ${event.change > 0 ? 'rose' : 'fell'}!`
         );
         break;
+      case 'heal':
+        messages.push(
+          `💔 ${event.side === 'player' ? state.player.name : state.opponent.name} healed for ${event.amount} HP!`
+        );
+        break;
       case 'charge_started':
         messages.push(
           `🔋  ${event.side === 'player' ? state.player.name : state.opponent.name} is charging up!`
@@ -185,6 +190,9 @@ const useBattleStore = create<BattleStoreState & BattleStoreActions>(
         if (event.type === 'charge_started') {
           playerAnimationUpdate = 'glow';
         }
+        if (event.type === 'heal') {
+          playerAnimationUpdate = 'glow';
+        }
       });
 
       set({
@@ -252,6 +260,9 @@ const useBattleStore = create<BattleStoreState & BattleStoreActions>(
           if (event.type === 'charge_started') {
             opponentAnimationUpdate_opp = 'glow';
           }
+          if (event.type === 'heal') {
+            opponentAnimationUpdate_opp = 'glow';
+          }
         });
 
         set((state) => ({
@@ -279,7 +290,7 @@ const useBattleStore = create<BattleStoreState & BattleStoreActions>(
             gameState: 'player_turn',
           });
         }, 2000);
-      }, 5000);
+      }, 3500);
     },
 
     restart: () => {

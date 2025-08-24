@@ -15,6 +15,8 @@ import EdwardSprite from '../assets/EdwardElric.png';
 import RoySprite from '../assets/RoyMustang.png';
 import SebastianSprite from '../assets/SebastianMichaelis.png';
 import CielSprite from '../assets/CielPhantomhive.png';
+import OliviaSprite from '../assets/Olivia.png';
+import BoogieSprite from '../assets/Boogie.png';
 
 export type MoveEffect =
   | 'defense_up'
@@ -288,7 +290,7 @@ export const CHARACTERS: Record<string, Character> = {
         name: 'Gum-Gum Pistol',
         power: 56,
         accuracy: 1.0,
-        emoji: '👊',
+        emoji: '🔫',
       },
       {
         id: 'm022',
@@ -306,7 +308,7 @@ export const CHARACTERS: Record<string, Character> = {
         power: 20,
         accuracy: 0.95,
         hits: 3,
-        emoji: '👊',
+        emoji: '💣',
       }, // Hits 3 times
       {
         id: 'm024',
@@ -739,11 +741,9 @@ export const CHARACTERS: Record<string, Character> = {
       {
         id: 'm088',
         name: "Hell's Contract",
-        power: 0,
+        power: 76,
         accuracy: 1.0,
-        effect: 'attack_up',
-        value: 2,
-        emoji: '📜',
+        emoji: '🔪',
       },
     ],
   },
@@ -775,10 +775,8 @@ export const CHARACTERS: Record<string, Character> = {
       {
         id: 'm091',
         name: 'This is an Order!',
-        power: 0,
+        power: 76,
         accuracy: 1.0,
-        effect: 'attack_up',
-        value: 2,
         emoji: '📜',
       },
       {
@@ -789,6 +787,86 @@ export const CHARACTERS: Record<string, Character> = {
         effect: 'enemy_attack_down',
         value: 1,
         emoji: '🏭',
+      },
+    ],
+  },
+  p018: {
+    id: 'p018',
+    name: 'Olivia GG',
+    //series: 'One Piece',
+    sprite: OliviaSprite,
+    hp: 120,
+    attack: 88,
+    defense: 80,
+    moves: [
+      {
+        id: 'm093',
+        name: 'Shade Throw',
+        power: 60,
+        accuracy: 1.0,
+        emoji: '🌑',
+      },
+      {
+        id: 'm094',
+        name: '',
+        power: 56,
+        accuracy: 1.0,
+        emoji: '🔫',
+      },
+      {
+        id: 'm095',
+        name: 'Gomu Gomu no Pistol',
+        power: 56,
+        accuracy: 1.0,
+        emoji: '🔫',
+      },
+      {
+        id: 'm096',
+        name: 'Gomu Gomu no Pistol',
+        power: 56,
+        accuracy: 1.0,
+        emoji: '🔫',
+      },
+    ],
+  },
+  p019: {
+    id: 'p019',
+    name: 'Boogie the Cat',
+    //series: 'One Piece',
+    sprite: BoogieSprite,
+    hp: 120,
+    attack: 88,
+    defense: 80,
+    moves: [
+      {
+        id: 'm097',
+        name: 'Biscuit Paws',
+        power: 60,
+        accuracy: 1.0,
+        emoji: '🐱',
+      },
+      {
+        id: 'm098',
+        name: 'Claw Slash',
+        power: 60,
+        accuracy: 1.0,
+        emoji: '🔪',
+      },
+      {
+        id: 'm099',
+        name: 'Snack Frenzy',
+        power: 60,
+        accuracy: 1.0,
+        effect: 'heal',
+        value: 45,
+        emoji: '🍪',
+      },
+      {
+        id: 'm100',
+        name: 'Meowth',
+        power: 60,
+        accuracy: 1.0,
+        emoji: '',
       },
     ],
   },

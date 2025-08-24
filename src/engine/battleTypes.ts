@@ -4,12 +4,13 @@ import type { Character, Move } from '../data/battleData';
 export type ActorSide = 'player' | 'opponent';
 
 // Stat stages (−6..+6)
-export type StatName = 'attack' | 'defense' | 'accuracy';
+export type StatName = 'attack' | 'defense' | 'accuracy' | 'hp';
 
 export interface StatStages {
   attack: number;
   defense: number;
   accuracy: number;
+  hp: number;
 }
 
 // Status flags and durations
@@ -93,6 +94,7 @@ export type BattleEvent =
       chance?: number;
     }
   | { type: 'heal'; side: ActorSide; amount: number; newHp: number }
+  | { type: 'heal_blocked'; side: ActorSide }
   | { type: 'recoil'; side: ActorSide; amount: number; newHp: number }
   | { type: 'faint'; side: ActorSide }
   | { type: 'turn_end'; side: ActorSide };

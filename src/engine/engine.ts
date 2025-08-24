@@ -37,7 +37,7 @@ export function createBattleCharacter(character: Character): BattleCharacter {
     maxHp: character.hp,
     baseAttack: character.attack,
     baseDefense: character.defense,
-    stages: { attack: 0, defense: 0, accuracy: 0 },
+    stages: { attack: 0, defense: 0, accuracy: 0, hp: 0 },
     status: {},
   };
 }
@@ -153,6 +153,7 @@ export function takeTurn(
     }
   }
 
+  
   // Freeze gate: if frozen, try thaw (20% chance) else blocked
   if (actor.status.freeze) {
     const thawed = rng() < 0.2;

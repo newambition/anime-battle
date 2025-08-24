@@ -37,8 +37,8 @@ export function applyAccuracyStages(
 }
 
 // Probabilities and crit multiplier
-export const BASE_CRIT_CHANCE = 0.05; // 5%
-export const HIGH_CRIT_CHANCE = 0.15; // 15%
+export const BASE_CRIT_CHANCE = 0.05; // 10%
+export const HIGH_CRIT_CHANCE = 0.15; // 30%
 export const CRIT_MULTIPLIER = 1.15;
 
 export function rollHit(
@@ -68,7 +68,7 @@ export function computeEffectiveDefense(
   return Math.max(1, Math.floor(effective));
 }
 
-const DAMAGE_CONSTANT = 5;
+const DAMAGE_CONSTANT = 0.2;
 
 export function computeDamage(
   attackerAttack: number,
@@ -88,7 +88,7 @@ export function computeDamage(
   );
 
   let raw =
-    (effectiveAttack / effectiveDefense) * movePower * 0.4 + DAMAGE_CONSTANT;
+    (effectiveAttack / effectiveDefense) * movePower * 0.3 + DAMAGE_CONSTANT;
   if (isCrit) raw *= CRIT_MULTIPLIER;
   const dmg = Math.max(1, Math.floor(raw));
   return dmg;
@@ -109,5 +109,15 @@ export function applyRecoil(
 ): { hp: number; fainted: boolean } {
   if (!recoil || recoil <= 0) return { hp: currentHp, fainted: false };
   const hp = Math.max(0, currentHp - Math.floor(recoil));
+  return { hp, fainted: hp <= 0 };
+}
+
+export function applyHeal(
+  currentHp: number,
+  maxHp: number,
+  heal?: number
+): { hp: number; fainted: boolean } {
+  if (!heal || heal <= 0) return { hp: currentHp, fainted: false };
+  const hp = Math.min(currentHp + Math.floor(heal), maxHp);
   return { hp, fainted: hp <= 0 };
 }

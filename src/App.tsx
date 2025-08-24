@@ -5,6 +5,7 @@ import CharacterSelect from './components/CharacterSelect.tsx';
 import useBattleStore from './store/battleStore.ts';
 import HomeButton from './components/HomeButton.tsx';
 import MoveButton from './components/MoveButton.tsx';
+import Footer from './components/footer.tsx';
 
 function App() {
   const { gameState, player, opponent, battleLog, handleMove, restart } =
@@ -15,7 +16,7 @@ function App() {
   }
 
   return (
-    <div className="flex h-screen flex-col p-4 text-white">
+    <div className="flex flex-col p-4 text-white">
       <div onClick={restart}>
         <HomeButton />
       </div>
@@ -27,7 +28,6 @@ function App() {
             name={opponent.name}
             currentHp={opponent.hp}
             maxHp={opponent.maxHp}
-            level={5}
             stats={`${opponent.hp}/${opponent.maxHp}`}
             isPlayer={false}
           />
@@ -48,7 +48,6 @@ function App() {
             name={player.name}
             currentHp={player.hp}
             maxHp={player.maxHp}
-            level={5}
             stats={`${player.hp}/${player.maxHp}`}
             isPlayer={true}
           />
@@ -65,7 +64,7 @@ function App() {
         {gameState === 'game_over' ? (
           <button
             onClick={restart}
-            className="col-span-2 rounded-2xl bg-blue-300 px-4 py-2 font-bold text-white shadow-lg"
+            className="col-span-2 rounded-2xl bg-blue-400 px-4 py-2 font-bold text-white shadow-lg"
           >
             Restart
           </button>
@@ -89,6 +88,8 @@ function App() {
           ))
         )}
       </div>
+
+      <Footer />
     </div>
   );
 }

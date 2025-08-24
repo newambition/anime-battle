@@ -6,7 +6,7 @@ import type {
   RNG,
   StatStages,
 } from './battleTypes';
-import { clamp, clampStage } from './battleMath';
+import { applyHeal, clampStage } from './battleMath';
 
 type NormalizedEffect = {
   type: MoveEffect;
@@ -182,9 +182,9 @@ export function applyStatuses(
         const raw = eff.value ?? move.value ?? 0;
         if (raw > 0) {
           const amount = Math.floor(raw);
-          const newHp = clamp(updatedActor.hp + amount, 0, updatedActor.maxHp);
-          updatedActor = { ...updatedActor, hp: newHp };
-          events.push({ type: 'heal', side, amount, newHp });
+          const newHp = applyHeal(updatedActor.hp, updatedActor.maxHp, amount);
+          updatedActor = { ...updatedActor, hp: newHp.hp };
+          events.push({ type: 'heal', side, amount, newHp: newHp.hp });
         }
         break;
       }
