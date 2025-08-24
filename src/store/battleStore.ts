@@ -242,10 +242,12 @@ const useBattleStore = create<BattleStoreState & BattleStoreActions>(
           if (event.type === 'damage') {
             playerAnimationUpdate_opp = 'shake';
             playerHealthFlashUpdate_opp = true;
+            navigator.vibrate(200);
           }
           if (event.type === 'recoil') {
             opponentAnimationUpdate_opp = 'shake';
             opponentHealthFlashUpdate_opp = true;
+            navigator.vibrate(200);
           }
           if (event.type === 'charge_started') {
             opponentAnimationUpdate_opp = 'glow';

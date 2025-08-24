@@ -14,7 +14,7 @@
 
 body,
 #root {
-  @apply h-[100dvh] overflow-hidden;
+  @apply h-dvh overflow-hidden;
 }
 
 body {
