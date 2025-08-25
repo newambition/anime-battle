@@ -22,7 +22,7 @@ const HealthBar: React.FC<HealthBarProps> = ({
   );
 
   return (
-    <div className="w-full rounded-2xl bg-white/50 p-2 shadow-lg">
+    <div className="glass-battle w-full rounded-2xl border border-white/10 p-2 shadow-lg">
       <div className="mb-1 flex items-center justify-between">
         <span className="font-bold text-black">{name}</span>
       </div>

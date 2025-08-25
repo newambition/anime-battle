@@ -25,7 +25,7 @@ const CharacterCard: React.FC<CharacterCardProps> = ({
 
   return (
     <div
-      className={`cursor-pointer rounded-2xl border-4 bg-transparent p-2 text-center ring-1 ring-white transition-transform hover:scale-105 ${getBorderColor()} `}
+      className={`glass-character cursor-pointer rounded-2xl border-4 bg-transparent p-2 text-center ring-1 ring-white transition-transform hover:scale-105 ${getBorderColor()} `}
       onClick={onClick}
     >
       <img src={sprite} alt={name} className="mx-auto h-16 w-16" />

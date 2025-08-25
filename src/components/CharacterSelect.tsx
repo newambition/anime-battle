@@ -43,7 +43,7 @@ const CharacterSelect = () => {
   };
 
   return (
-    <div className="flex h-screen flex-col items-center justify-center p-6">
+    <div className="bg-gradient flex h-screen flex-col items-center justify-center p-6">
       <h1 className="font-pixel mt-4 mb-4 text-center text-2xl font-bold tracking-wider text-white">
         Choose Your Fighter
       </h1>

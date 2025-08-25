@@ -8,6 +8,7 @@ import { CHARACTERS, type Move } from '../data/battleData';
 import { initializeBattleState, takeTurn } from '../engine/engine';
 
 type GameStatus =
+  | 'splash'
   | 'selecting'
   | 'player_turn'
   | 'opponent_turn'
@@ -36,6 +37,7 @@ interface BattleStoreActions {
   startBattle: () => void;
   handleMove: (move: Move) => void;
   restart: () => void;
+  completeSplash: () => void;
 }
 
 // Helper function to process battle log messages
@@ -115,7 +117,7 @@ function processEvents(
 const useBattleStore = create<BattleStoreState & BattleStoreActions>(
   (set, get) => ({
     // Initial State
-    gameState: 'selecting',
+    gameState: 'splash',
     battleState: null,
     battleLog: [],
     playerChoiceId: '',
@@ -150,7 +152,7 @@ const useBattleStore = create<BattleStoreState & BattleStoreActions>(
       });
     },
 
-        handleMove: (move) => {
+    handleMove: (move) => {
       const { battleState } = get();
       if (get().gameState !== 'player_turn' || !battleState) return;
 
@@ -273,7 +275,10 @@ const useBattleStore = create<BattleStoreState & BattleStoreActions>(
           opponentHealthFlash: opponentHealthFlashUpdate_opp,
         }));
 
-        if (opponentTurnState.player.hp <= 0 || opponentTurnState.opponent.hp <= 0) {
+        if (
+          opponentTurnState.player.hp <= 0 ||
+          opponentTurnState.opponent.hp <= 0
+        ) {
           set({ gameState: 'game_over' });
           return;
         }
@@ -304,6 +309,10 @@ const useBattleStore = create<BattleStoreState & BattleStoreActions>(
         playerHealthFlash: false,
         opponentHealthFlash: false,
       });
+    },
+
+    completeSplash: () => {
+      set({ gameState: 'selecting' });
     },
   })
 );

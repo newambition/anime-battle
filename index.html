@@ -7,9 +7,53 @@
       content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
     />
     <title>Anime Showdown</title>
+    <meta
+      name="description"
+      content="Turn-based anime battle game with epic characters and tactical combat."
+    />
+    <meta
+      name="keywords"
+      content="anime, battle, game, turn-based, characters, showdown"
+    />
+    <meta name="author" content="Anime Showdown Team" />
+
+    <!-- PWA Meta Tags -->
+    <meta name="theme-color" content="#6366f1" />
+    <meta name="application-name" content="Anime Showdown" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta
+      name="apple-mobile-web-app-status-bar-style"
+      content="black-translucent"
+    />
+    <meta name="apple-mobile-web-app-title" content="Anime Showdown" />
+    <meta name="msapplication-TileColor" content="#1e1b4b" />
+    <meta name="msapplication-config" content="/browserconfig.xml" />
+
+    <!-- PWA Status Bar Style -->
+    <style>
+      /* iOS PWA status bar styling only */
+      @media (display-mode: standalone) {
+        body {
+          padding-top: env(safe-area-inset-top);
+        }
+      }
+    </style>
+
+    <!-- Icons -->
     <link rel="icon" type="image/svg+xml" href="/winkHeart.svg" />
     <link rel="apple-touch-icon" href="/winkHeart.svg" />
+    <link rel="apple-touch-icon" sizes="152x152" href="/winkHeart.svg" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/winkHeart.svg" />
+    <link rel="apple-touch-icon" sizes="167x167" href="/winkHeart.svg" />
+
+    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      rel="preload"
+      href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap"
+      as="style"
+    />
   </head>
   <body>
     <div id="root"></div>

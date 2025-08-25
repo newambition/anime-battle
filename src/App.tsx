@@ -2,6 +2,7 @@ import HealthBar from './components/HealthBar.tsx';
 import BattleLog from './components/BattleLog.tsx';
 import CharacterSprite from './components/CharacterSprite.tsx';
 import CharacterSelect from './components/CharacterSelect.tsx';
+import SplashScreen from './components/SplashScreen.tsx';
 import useBattleStore from './store/battleStore.ts';
 import HomeButton from './components/HomeButton.tsx';
 import MoveButton from './components/MoveButton.tsx';
@@ -11,8 +12,15 @@ import backgroundMusic from './assets/my-8-bit-hero-301280.mp3';
 import { useEffect, useRef } from 'react';
 
 function App() {
-  const { gameState, player, opponent, battleLog, handleMove, restart } =
-    useBattleStore();
+  const {
+    gameState,
+    player,
+    opponent,
+    battleLog,
+    handleMove,
+    restart,
+    completeSplash,
+  } = useBattleStore();
   const audioRef = useRef<HTMLAudioElement>(null);
 
   useEffect(() => {
@@ -22,6 +30,10 @@ function App() {
       });
     }
   }, [gameState]);
+
+  if (gameState === 'splash') {
+    return <SplashScreen onComplete={completeSplash} />;
+  }
 
   if (gameState === 'selecting') {
     return <CharacterSelect />;
@@ -33,13 +45,13 @@ function App() {
     }
     // A move is an effect move if it has an `effect` or `effects` property.
     if (move.effect || (move.effects && move.effects.length > 0)) {
-      return 'bg-blue-400'; // Color for effect moves
+      return 'bg-blue-400/90'; // Color for effect moves
     }
-    return 'bg-yellow-400'; // Color for damage moves
+    return 'bg-yellow-400/90'; // Color for damage moves
   };
 
   return (
-    <div className="flex flex-col p-5 text-black">
+    <div className="bg-gradient flex flex-col p-5 text-black">
       <div onClick={restart}>
         <HomeButton />
       </div>
@@ -80,7 +92,7 @@ function App() {
       <audio ref={audioRef} src={backgroundMusic} loop />
 
       {/* Battle Log */}
-      <div className="mb-2 rounded-2xl bg-white/60 p-4 text-black shadow-lg">
+      <div className="glass-battle mb-2 rounded-2xl border border-white/10 p-4 text-black shadow-lg">
         <BattleLog messages={battleLog} />
       </div>
 

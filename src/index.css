@@ -2,14 +2,30 @@
 @import 'tailwindcss';
 
 @theme {
-  --color-primary: #dec2fc;
-  --color-secondary: #b4c4fc;
-  --color-tertiary: #97bff4;
+  --color-primary: #d57ff1;
+  --color-secondary: #7e8ffa;
+  --color-tertiary: #5b70fb;
   --font-pixel: 'Press Start 2P';
 }
 
 ::-webkit-scrollbar {
   display: none;
+}
+
+@layer utilities {
+  .bg-gradient {
+    @apply from-primary via-secondary to-tertiary bg-gradient-to-br;
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+  }
+
+  .glass-character {
+    @apply bg-white/10 backdrop-blur-sm;
+  }
+}
+
+.glass-battle {
+  @apply bg-white/25 backdrop-blur-sm;
 }
 
 body,
@@ -20,10 +36,7 @@ body,
 }
 
 body {
-  @apply from-primary via-secondary to-tertiary bg-gradient-to-br font-sans;
-  background-size: 100% 100%;
-  background-repeat: no-repeat;
-  background-blend-mode: color-dodge;
+  @apply font-sans;
 }
 
 @keyframes shake {
